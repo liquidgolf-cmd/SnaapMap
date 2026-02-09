@@ -65,3 +65,21 @@ If you deploy as a static site and don't add a backend:
 | Deploy with serverless proxy (Vercel) | Yes | No (key stays on server) |
 
 Add a backend proxy before deploying to production if you want AI features to work securely.
+
+---
+
+## Vercel: SPA routing
+
+The app uses client-side routing (React Router). `vercel.json` is configured so that routes like `/signin` and `/app/audit` serve `index.html`; the client then renders the correct page. Without this, direct requests or refreshes on those URLs would return 404.
+
+---
+
+## Firebase Auth: authorized domains
+
+If you use Firebase Authentication (e.g. Google Sign-In) on a custom domain (e.g. `snaapmap.vercel.app`), add that domain in Firebase:
+
+1. Open [Firebase Console](https://console.firebase.google.com) → your project.
+2. **Authentication** → **Settings** → **Authorized domains**.
+3. Click **Add domain** and add your production domain (e.g. `snaapmap.vercel.app`).
+
+Otherwise you’ll see `auth/unauthorized-domain` and “The current domain is not authorized for OAuth operations” when using Sign in with Google in production.

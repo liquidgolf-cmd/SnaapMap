@@ -5,7 +5,7 @@ export function Splash() {
   const { firebaseUser, authLoading } = useAuth()
 
   if (!authLoading && firebaseUser) {
-    return <Navigate to="/app/audit" replace />
+    return <Navigate to="/app/guide" replace />
   }
 
   return (

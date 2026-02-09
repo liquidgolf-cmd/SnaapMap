@@ -28,7 +28,7 @@ function App() {
             <Route path="/" element={<Splash />} />
             <Route path="/signin" element={<SignIn />} />
             <Route path="app" element={<MindMapZoomProvider><MainLayout /></MindMapZoomProvider>}>
-              <Route index element={<Navigate to="/app/audit" replace />} />
+              <Route index element={<Navigate to="/app/guide" replace />} />
               <Route path="audit" element={<Dashboard />} />
               <Route path="guide" element={<Home />} />
               <Route path="mindmap" element={<MindMap />} />

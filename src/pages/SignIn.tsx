@@ -12,7 +12,7 @@ export function SignIn() {
   const [googleLoading, setGoogleLoading] = useState(false)
 
   if (!authLoading && firebaseUser) {
-    return <Navigate to="/app/audit" replace />
+    return <Navigate to="/app/guide" replace />
   }
 
   const handleSubmit = (e: FormEvent) => {
@@ -21,14 +21,14 @@ export function SignIn() {
     const trimmedEmail = email.trim()
     if (!trimmedName || !trimmedEmail) return
     recordUser(trimmedName, trimmedEmail)
-    navigate('/app/audit')
+    navigate('/app/guide')
   }
 
   const handleGoogleSignIn = async () => {
     setGoogleLoading(true)
     try {
       await signInWithGoogle()
-      navigate('/app/audit')
+      navigate('/app/guide')
     } finally {
       setGoogleLoading(false)
     }
