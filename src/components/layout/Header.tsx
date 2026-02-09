@@ -1,4 +1,4 @@
-import { useLocation } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import { useAudit } from '../../context/AuditContext'
 import { getSectionById } from '../../data/auditQuestions'
 
@@ -33,6 +33,13 @@ export function Header({
   return (
     <header className="h-16 bg-slate-800 border-b border-slate-600 flex items-center justify-between px-6 shrink-0">
       <div className="flex items-center gap-4 min-w-0">
+        <Link
+          to="/"
+          className="shrink-0 flex items-center"
+          aria-label="SnaapMap home"
+        >
+          <img src="/snappmaplogo.png" alt="SnaapMap" className="h-8 w-auto" />
+        </Link>
         {showFocusToggle && onToggleSidebar && (
           <button
             type="button"

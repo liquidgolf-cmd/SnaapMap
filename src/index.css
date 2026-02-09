@@ -10,21 +10,95 @@
   --color-border: #e2e8f0;
 }
 
+/* Theme variables: applied on html via data-theme (set by PreferencesContext) */
+:root,
+[data-theme="dark"] {
+  --app-bg: #1e293b;
+  --app-surface: #334155;
+  --app-surface-alt: #1e293b;
+  --app-border: #475569;
+  --app-text: #f1f5f9;
+  --app-text-muted: #94a3b8;
+}
+
+[data-theme="light"] {
+  --app-bg: #f1f5f9;
+  --app-surface: #e2e8f0;
+  --app-surface-alt: #cbd5e1;
+  --app-border: #cbd5e1;
+  --app-text: #0f172a;
+  --app-text-muted: #64748b;
+}
+
 @layer base {
   body {
     font-family: var(--font-sans);
+    background-color: var(--app-bg);
+    color: var(--app-text);
   }
+}
 
-  [data-theme="dark"] body,
-  body {
-    background-color: #1e293b;
-    color: #f1f5f9;
-  }
-
-  [data-theme="light"] body {
-    background-color: #f1f5f9;
-    color: #0f172a;
-  }
+/* Theme-aware app layout: main chrome uses CSS variables so light/dark switch works */
+.app-layout {
+  background-color: var(--app-bg);
+  color: var(--app-text);
+}
+.app-layout aside,
+.app-layout header {
+  background-color: var(--app-surface) !important;
+  border-color: var(--app-border) !important;
+  color: var(--app-text) !important;
+}
+.app-layout aside *,
+.app-layout header * {
+  color: inherit;
+}
+.app-layout .theme-surface {
+  background-color: var(--app-surface) !important;
+  border-color: var(--app-border) !important;
+  color: var(--app-text) !important;
+}
+.app-layout .theme-surface * {
+  color: inherit;
+}
+[data-theme="light"] .app-layout .text-slate-100,
+[data-theme="light"] .app-layout .text-slate-200,
+[data-theme="light"] .app-layout .text-slate-300,
+[data-theme="light"] .app-layout .text-slate-400,
+[data-theme="light"] .app-layout .text-slate-500 {
+  color: var(--app-text) !important;
+}
+[data-theme="light"] .app-layout .text-slate-400 {
+  color: var(--app-text-muted) !important;
+}
+[data-theme="light"] .app-layout .bg-slate-700,
+[data-theme="light"] .app-layout .bg-slate-800 {
+  background-color: var(--app-surface) !important;
+}
+[data-theme="light"] .app-layout .border-slate-600,
+[data-theme="light"] .app-layout .border-slate-700 {
+  border-color: var(--app-border) !important;
+}
+[data-theme="light"] .app-layout .bg-slate-800\/10,
+[data-theme="light"] .app-layout .hover\:bg-slate-800:hover {
+  background-color: var(--app-surface-alt) !important;
+}
+[data-theme="light"] .app-layout input,
+[data-theme="light"] .app-layout select,
+[data-theme="light"] .app-layout textarea {
+  background-color: var(--app-surface-alt) !important;
+  border-color: var(--app-border) !important;
+  color: var(--app-text) !important;
+}
+[data-theme="light"] .app-layout input::placeholder,
+[data-theme="light"] .app-layout textarea::placeholder {
+  color: var(--app-text-muted) !important;
+}
+[data-theme="light"] .app-layout .bg-slate-600 {
+  background-color: var(--app-surface-alt) !important;
+}
+[data-theme="light"] .app-layout .bg-slate-900 {
+  background-color: var(--app-surface) !important;
 }
 
 /* React Flow mind map: attribution and control labels for dark theme */

@@ -27,7 +27,7 @@ export function MainLayout() {
   }
 
   return (
-    <div className="min-h-screen bg-slate-800 flex">
+    <div className="app-layout min-h-screen bg-slate-800 flex">
       {!sidebarCollapsed && <Sidebar />}
       <div className="flex-1 flex flex-col min-w-0">
         <Header

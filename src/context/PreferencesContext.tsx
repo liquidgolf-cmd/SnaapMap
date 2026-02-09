@@ -63,7 +63,13 @@ interface PreferencesContextValue {
 const PreferencesContext = createContext<PreferencesContextValue | null>(null)
 
 export function PreferencesProvider({ children }: { children: ReactNode }) {
-  const [preferences, setPreferencesState] = useState<Preferences>(loadPreferences)
+  const [preferences, setPreferencesState] = useState<Preferences>(() => {
+    const p = loadPreferences()
+    if (typeof document !== 'undefined') {
+      document.documentElement.setAttribute('data-theme', p.theme)
+    }
+    return p
+  })
 
   useEffect(() => {
     savePreferences(preferences)

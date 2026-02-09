@@ -18,7 +18,7 @@ export function Splash() {
   }
 
   return (
-    <div className="min-h-screen bg-slate-800 text-slate-100">
+    <div className="app-layout min-h-screen bg-slate-800 text-slate-100">
       {/* Hero */}
       <header className="text-center pt-16 pb-12 px-6">
         <h1 className="text-4xl font-bold text-slate-100 mb-3">
