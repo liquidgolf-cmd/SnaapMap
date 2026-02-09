@@ -3,11 +3,11 @@ import { useAudit } from '../../context/AuditContext'
 import { getSectionById } from '../../data/auditQuestions'
 
 const routeTitles: Record<string, string> = {
-  '/': 'Audit',
-  '/home': 'Home',
-  '/mindmap': 'Mind Map',
-  '/prompts': 'Export',
-  '/settings': 'Settings',
+  '/app/audit': 'Audit',
+  '/app/guide': 'Guide',
+  '/app/mindmap': 'Mind Map',
+  '/app/prompts': 'Export',
+  '/app/settings': 'Settings',
 }
 
 interface HeaderProps {
@@ -26,7 +26,7 @@ export function Header({
   const section = currentSectionId ? getSectionById(currentSectionId) : null
   const baseTitle = routeTitles[location.pathname] ?? 'SnaapMap'
   const title =
-    location.pathname === '/' && section
+    location.pathname === '/app/audit' && section
       ? `Step ${section.stepNum}: ${section.title}`
       : baseTitle
 

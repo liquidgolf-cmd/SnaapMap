@@ -52,7 +52,7 @@ export function Settings() {
         <h2 className="text-lg font-semibold text-slate-100">Settings</h2>
         <button
           type="button"
-          onClick={() => navigate('/')}
+          onClick={() => navigate('/app/audit')}
           className="flex items-center gap-2 px-4 py-2 rounded-lg border border-slate-600 text-slate-300 hover:bg-slate-600 hover:text-slate-200 transition-colors text-sm"
           title="Back to Audit"
         >

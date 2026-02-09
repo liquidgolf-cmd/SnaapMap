@@ -7,13 +7,13 @@ export interface StepConfig {
 }
 
 export const STEPS: StepConfig[] = [
-  { num: 1, id: 'foundation', label: 'Foundation', subtitle: 'Why are you building this?', path: '/' },
-  { num: 2, id: 'people', label: 'People', subtitle: 'Who is this for?', path: '/' },
-  { num: 3, id: 'goals', label: 'Goals', subtitle: 'What do they want?', path: '/' },
-  { num: 4, id: 'solution', label: 'Solution', subtitle: 'How will it work?', path: '/' },
-  { num: 5, id: 'design', label: 'Design', subtitle: 'What should it look like?', path: '/' },
-  { num: 6, id: 'impact', label: 'Impact', subtitle: 'Why does this matter?', path: '/' },
-  { num: 7, id: 'export', label: 'Export', subtitle: 'Generate & download', path: '/prompts' },
+  { num: 1, id: 'foundation', label: 'Foundation', subtitle: 'Why are you building this?', path: '/app/audit' },
+  { num: 2, id: 'people', label: 'People', subtitle: 'Who is this for?', path: '/app/audit' },
+  { num: 3, id: 'goals', label: 'Goals', subtitle: 'What do they want?', path: '/app/audit' },
+  { num: 4, id: 'solution', label: 'Solution', subtitle: 'How will it work?', path: '/app/audit' },
+  { num: 5, id: 'design', label: 'Design', subtitle: 'What should it look like?', path: '/app/audit' },
+  { num: 6, id: 'impact', label: 'Impact', subtitle: 'Why does this matter?', path: '/app/audit' },
+  { num: 7, id: 'export', label: 'Export', subtitle: 'Generate & download', path: '/app/prompts' },
 ]
 
 export type StepId = (typeof STEPS)[number]['id']

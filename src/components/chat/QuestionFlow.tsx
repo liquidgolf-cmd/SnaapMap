@@ -29,7 +29,7 @@ export function QuestionFlow() {
 
   const goNext = () => {
     if (isOnLastSection) {
-      navigate('/prompts')
+      navigate('/app/prompts')
     } else if (hasNext) {
       setCurrentSection(auditSections[currentIndex + 1].id)
     }

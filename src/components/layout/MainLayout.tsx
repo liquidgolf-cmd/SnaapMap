@@ -9,7 +9,7 @@ import { StepIndicator } from '../progress/StepIndicator'
 
 export function MainLayout() {
   const location = useLocation()
-  const isAuditRoute = location.pathname === '/'
+  const isAuditRoute = location.pathname === '/app/audit'
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false)
 
   return (

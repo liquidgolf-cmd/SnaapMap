@@ -35,18 +35,18 @@ export function Home() {
     if (nextIncompleteSection) {
       setCurrentSection(nextIncompleteSection.id as SectionId)
     }
-    navigate('/')
+    navigate('/app/audit')
   }
 
   return (
     <div className="max-w-4xl mx-auto space-y-10">
-      {/* Hero / Welcome */}
+      {/* Guide / How it works */}
       <section className="text-center pt-4">
         <h1 className="text-3xl font-bold text-slate-100 mb-2">
-          Welcome to SnaapMap
+          Guide
         </h1>
         <p className="text-lg text-slate-400 mb-4">
-          Your Vibe Coder Prompt Tool
+          What to expect and how to use SnaapMap
         </p>
         <p className="text-slate-300 max-w-2xl mx-auto">
           The HomeRun Method is a 7-step process to define your app idea and
@@ -100,7 +100,7 @@ export function Home() {
             </span>
           </button>
           <Link
-            to="/mindmap"
+            to="/app/mindmap"
             className="flex flex-col items-start p-5 rounded-xl bg-slate-700 border border-slate-600 text-left hover:bg-slate-600 transition-colors no-underline"
             aria-label="Open Mind Map"
           >
@@ -110,7 +110,7 @@ export function Home() {
             </span>
           </Link>
           <Link
-            to="/prompts"
+            to="/app/prompts"
             className="flex flex-col items-start p-5 rounded-xl bg-slate-700 border border-slate-600 text-left hover:bg-slate-600 transition-colors no-underline"
             aria-label="Export prompts"
           >
@@ -120,7 +120,7 @@ export function Home() {
             </span>
           </Link>
           <Link
-            to="/settings"
+            to="/app/settings"
             className="flex flex-col items-start p-5 rounded-xl bg-slate-700 border border-slate-600 text-left hover:bg-slate-600 transition-colors no-underline"
             aria-label="Open settings"
           >
