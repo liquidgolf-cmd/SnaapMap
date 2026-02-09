@@ -4,15 +4,19 @@ import {
   useMemo,
   useRef,
   useState,
+  type Dispatch,
+  type SetStateAction,
 } from 'react'
 import {
   ReactFlow,
+  ReactFlowProvider,
   addEdge,
   applyEdgeChanges,
   applyNodeChanges,
   Background,
   Controls,
   Handle,
+  Panel,
   Position,
   useReactFlow,
   type Node,
@@ -133,6 +137,131 @@ function MindMapZoomRegistrar() {
   return null
 }
 
+interface MindMapToolbarProps {
+  setNodes: Dispatch<SetStateAction<Node[]>>
+  setEdges: Dispatch<SetStateAction<Edge[]>>
+  edges: Edge[]
+  saveToHistory: (nodesToSave: Node[], edgesToSave: Edge[]) => void
+  onSyncFromAudit: () => void
+}
+
+function MindMapToolbar({ setNodes, setEdges: _setEdges, edges, saveToHistory, onSyncFromAudit }: MindMapToolbarProps) {
+  const reactFlowInstance = useReactFlow()
+
+  const addNode = useCallback(() => {
+    const centerX = window.innerWidth / 2
+    const centerY = window.innerHeight / 2
+    const position = reactFlowInstance.screenToFlowPosition({ x: centerX, y: centerY })
+    const newNodeId = `node-${Date.now()}`
+    const newNode: Node = {
+      id: newNodeId,
+      type: 'mindmap',
+      position,
+      data: { label: 'New Node', type: 'default' },
+      selected: true,
+    }
+    setNodes((nds) => {
+      const updated = [...nds, newNode]
+      saveToHistory(updated, edges)
+      return updated
+    })
+  }, [reactFlowInstance, edges, saveToHistory, setNodes])
+
+  const exportToPng = useCallback(async () => {
+    try {
+      const reactFlowViewport = document.querySelector('.react-flow__viewport') as HTMLElement
+      if (!reactFlowViewport) {
+        throw new Error('React Flow viewport not found')
+      }
+
+      const html2canvas = (window as any).html2canvas
+      if (html2canvas) {
+        const canvas = await html2canvas(reactFlowViewport, {
+          backgroundColor: '#1e293b',
+          useCORS: true,
+        })
+        const dataUrl = canvas.toDataURL('image/png')
+        const a = document.createElement('a')
+        a.href = dataUrl
+        a.download = 'mindmap.png'
+        a.click()
+      } else {
+        const canvas = document.createElement('canvas')
+        const ctx = canvas.getContext('2d')
+        if (!ctx) {
+          throw new Error('Could not get canvas context')
+        }
+
+        const bounds = reactFlowInstance.getNodesBounds(reactFlowInstance.getNodes())
+        canvas.width = bounds.width + 40
+        canvas.height = bounds.height + 40
+        ctx.fillStyle = '#1e293b'
+        ctx.fillRect(0, 0, canvas.width, canvas.height)
+
+        const img = new Image()
+        const svgElement = reactFlowViewport.querySelector('svg')
+        if (svgElement) {
+          const svgData = new XMLSerializer().serializeToString(svgElement)
+          const svgBlob = new Blob([svgData], { type: 'image/svg+xml;charset=utf-8' })
+          const url = URL.createObjectURL(svgBlob)
+
+          img.onload = () => {
+            ctx.drawImage(img, 0, 0)
+            canvas.toBlob((blob) => {
+              if (blob) {
+                const a = document.createElement('a')
+                a.href = URL.createObjectURL(blob)
+                a.download = 'mindmap.png'
+                a.click()
+                URL.revokeObjectURL(a.href)
+              }
+              URL.revokeObjectURL(url)
+            }, 'image/png')
+          }
+          img.src = url
+        } else {
+          throw new Error('SVG element not found')
+        }
+      }
+    } catch (error) {
+      console.error('Failed to export PNG:', error)
+      alert('Failed to export PNG. For best results, install html2canvas: npm install html2canvas')
+    }
+  }, [reactFlowInstance])
+
+  return (
+    <>
+      <Panel position="top-left" className="flex gap-2">
+        <button
+          type="button"
+          onClick={addNode}
+          className="px-3 py-1.5 rounded-lg bg-slate-600 text-slate-200 text-sm hover:bg-slate-500 transition-colors"
+          title="Add Node"
+        >
+          + Add Node
+        </button>
+        <button
+          type="button"
+          onClick={exportToPng}
+          className="px-3 py-1.5 rounded-lg bg-slate-600 text-slate-200 text-sm hover:bg-slate-500 transition-colors"
+          title="Export as PNG"
+        >
+          Export PNG
+        </button>
+      </Panel>
+      <Panel position="top-right">
+        <button
+          type="button"
+          onClick={onSyncFromAudit}
+          className="px-3 py-1.5 rounded-lg bg-slate-600 text-slate-200 text-sm hover:bg-slate-500 transition-colors"
+        >
+          Sync from Audit
+        </button>
+      </Panel>
+    </>
+  )
+}
+
 function buildInitialNodesFromAudit(responses: Record<string, string | string[]>) {
   const appName = (responses.app_name as string) || 'My App'
   const primaryUsers = (responses.primary_users as string) || 'Users'
@@ -197,7 +326,6 @@ export function MindMapCanvas() {
   const [history, setHistory] = useState<Array<{ nodes: Node[]; edges: Edge[] }>>([])
   const [historyIndex, setHistoryIndex] = useState(-1)
   const historyTimeoutRef = useRef<ReturnType<typeof setTimeout> | undefined>(undefined)
-  const reactFlowInstance = useReactFlow()
 
   const initial = useMemo(
     () => buildInitialNodesFromAudit(responses),
@@ -367,87 +495,6 @@ export function MindMapCanvas() {
     [saveToHistory]
   )
 
-  const addNode = useCallback(() => {
-    const centerX = window.innerWidth / 2
-    const centerY = window.innerHeight / 2
-    const position = reactFlowInstance.screenToFlowPosition({ x: centerX, y: centerY })
-    const newNodeId = `node-${Date.now()}`
-    const newNode: Node = {
-      id: newNodeId,
-      type: 'mindmap',
-      position,
-      data: { label: 'New Node', type: 'default' },
-      selected: true,
-    }
-    setNodes((nds) => {
-      const updated = [...nds, newNode]
-      saveToHistory(updated, edges)
-      return updated
-    })
-  }, [reactFlowInstance, edges, saveToHistory])
-
-  const exportToPng = useCallback(async () => {
-    try {
-      const reactFlowViewport = document.querySelector('.react-flow__viewport') as HTMLElement
-      if (!reactFlowViewport) {
-        throw new Error('React Flow viewport not found')
-      }
-
-      const html2canvas = (window as any).html2canvas
-      if (html2canvas) {
-        const canvas = await html2canvas(reactFlowViewport, {
-          backgroundColor: '#1e293b',
-          useCORS: true,
-        })
-        const dataUrl = canvas.toDataURL('image/png')
-        const a = document.createElement('a')
-        a.href = dataUrl
-        a.download = 'mindmap.png'
-        a.click()
-      } else {
-        const canvas = document.createElement('canvas')
-        const ctx = canvas.getContext('2d')
-        if (!ctx) {
-          throw new Error('Could not get canvas context')
-        }
-        
-        const bounds = reactFlowInstance.getNodesBounds(reactFlowInstance.getNodes())
-        canvas.width = bounds.width + 40
-        canvas.height = bounds.height + 40
-        ctx.fillStyle = '#1e293b'
-        ctx.fillRect(0, 0, canvas.width, canvas.height)
-        
-        const img = new Image()
-        const svgElement = reactFlowViewport.querySelector('svg')
-        if (svgElement) {
-          const svgData = new XMLSerializer().serializeToString(svgElement)
-          const svgBlob = new Blob([svgData], { type: 'image/svg+xml;charset=utf-8' })
-          const url = URL.createObjectURL(svgBlob)
-          
-          img.onload = () => {
-            ctx.drawImage(img, 0, 0)
-            canvas.toBlob((blob) => {
-              if (blob) {
-                const a = document.createElement('a')
-                a.href = URL.createObjectURL(blob)
-                a.download = 'mindmap.png'
-                a.click()
-                URL.revokeObjectURL(a.href)
-              }
-              URL.revokeObjectURL(url)
-            }, 'image/png')
-          }
-          img.src = url
-        } else {
-          throw new Error('SVG element not found')
-        }
-      }
-    } catch (error) {
-      console.error('Failed to export PNG:', error)
-      alert('Failed to export PNG. For best results, install html2canvas: npm install html2canvas')
-    }
-  }, [reactFlowInstance])
-
   useEffect(() => {
     try {
       localStorage.setItem(
@@ -469,50 +516,32 @@ export function MindMapCanvas() {
   }, [responses])
 
   return (
-    <div className="relative h-[calc(100vh-12rem)] min-h-[400px] rounded-xl overflow-hidden border border-slate-600 bg-slate-700">
-      <div className="absolute top-2 left-2 z-10 flex gap-2">
-        <button
-          type="button"
-          onClick={addNode}
-          className="px-3 py-1.5 rounded-lg bg-slate-600 text-slate-200 text-sm hover:bg-slate-500 transition-colors"
-          title="Add Node"
+    <ReactFlowProvider>
+      <div className="relative h-[calc(100vh-12rem)] min-h-[400px] rounded-xl overflow-hidden border border-slate-600 bg-slate-700">
+        <ReactFlow
+          nodes={nodes}
+          edges={edges}
+          onNodesChange={onNodesChange}
+          onEdgesChange={onEdgesChange}
+          onConnect={onConnect}
+          onNodesDelete={onNodesDelete}
+          nodeTypes={nodeTypes}
+          fitView
+          fitViewOptions={{ padding: 0.2 }}
+          className="dark"
         >
-          + Add Node
-        </button>
-        <button
-          type="button"
-          onClick={exportToPng}
-          className="px-3 py-1.5 rounded-lg bg-slate-600 text-slate-200 text-sm hover:bg-slate-500 transition-colors"
-          title="Export as PNG"
-        >
-          Export PNG
-        </button>
+          <MindMapToolbar
+            setNodes={setNodes}
+            setEdges={setEdges}
+            edges={edges}
+            saveToHistory={saveToHistory}
+            onSyncFromAudit={syncFromAudit}
+          />
+          <Background />
+          <Controls />
+          <MindMapZoomRegistrar />
+        </ReactFlow>
       </div>
-      <div className="absolute top-2 right-2 z-10">
-        <button
-          type="button"
-          onClick={syncFromAudit}
-          className="px-3 py-1.5 rounded-lg bg-slate-600 text-slate-200 text-sm hover:bg-slate-500 transition-colors"
-        >
-          Sync from Audit
-        </button>
-      </div>
-      <ReactFlow
-        nodes={nodes}
-        edges={edges}
-        onNodesChange={onNodesChange}
-        onEdgesChange={onEdgesChange}
-        onConnect={onConnect}
-        onNodesDelete={onNodesDelete}
-        nodeTypes={nodeTypes}
-        fitView
-        fitViewOptions={{ padding: 0.2 }}
-        className="dark"
-      >
-        <Background />
-        <Controls />
-        <MindMapZoomRegistrar />
-      </ReactFlow>
-    </div>
+    </ReactFlowProvider>
   )
 }
