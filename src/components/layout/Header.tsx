@@ -1,5 +1,6 @@
 import { Link, useLocation } from 'react-router-dom'
 import { useAudit } from '../../context/AuditContext'
+import { usePreferences } from '../../context/PreferencesContext'
 import { getSectionById } from '../../data/auditQuestions'
 
 const routeTitles: Record<string, string> = {
@@ -22,8 +23,10 @@ export function Header({
   onToggleSidebar,
 }: HeaderProps) {
   const location = useLocation()
+  const { preferences } = usePreferences()
   const { currentSectionId } = useAudit()
   const section = currentSectionId ? getSectionById(currentSectionId) : null
+  const logoSrc = preferences.theme === 'light' ? '/SnappMapLogo_light.png' : '/SnappMapLogo_dark.png'
   const baseTitle = routeTitles[location.pathname] ?? 'SnaapMap'
   const title =
     location.pathname === '/app/audit' && section
@@ -38,7 +41,7 @@ export function Header({
           className="shrink-0 flex flex-col items-center gap-0.5"
           aria-label="SnaapMap home"
         >
-          <img src="/snappmaplogo.png" alt="SnaapMap" className="h-8 w-auto" />
+          <img src={logoSrc} alt="SnaapMap" className="h-8 w-auto" />
           <span className="text-xs text-slate-400">Vibe Coder Prompt Tool</span>
         </Link>
         {showFocusToggle && onToggleSidebar && (
