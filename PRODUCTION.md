@@ -30,11 +30,23 @@ Before deploying an app that uses AI features to a public URL, you **must** add 
 4. Run the server alongside your app (e.g. Vite on 5173, Express on 3001).
 5. Configure your host to serve the API route from the same domain or a backend subdomain.
 
-### Option B: Serverless functions (Vercel / Netlify)
+### Option B: Serverless proxy (Vercel) — **included in this repo**
 
-1. Create an API route (Vercel) or serverless function (Netlify).
-2. The function receives the request, adds the API key from env, calls Anthropic, returns the response.
-3. Frontend calls `/api/anthropic` (same origin) – your host routes it to the function.
+This project includes a Vercel serverless proxy so the API key never goes to the client.
+
+**Steps:**
+
+1. **Deploy** the app to Vercel (e.g. connect the GitHub repo). The `api/` folder is deployed as serverless functions.
+
+2. **Set environment variables** in Vercel:
+   - **Project → Settings → Environment Variables**
+   - Add:
+     - **`ANTHROPIC_API_KEY`** — your Anthropic API key (server-side only; not exposed to the browser).
+     - **`VITE_AI_PROXY_ENABLED`** — set to **`true`** for Production (and optionally Preview). This tells the frontend that AI is available via the proxy so it does not need the key.
+
+3. **Redeploy** after saving the env vars so the build gets `VITE_AI_PROXY_ENABLED` and the serverless function gets `ANTHROPIC_API_KEY`.
+
+The frontend calls `/api/anthropic/v1/messages` (same origin). Vercel routes that to `api/anthropic/v1/messages.js`, which adds the key and forwards to Anthropic.
 
 ### Option C: Disable AI for production
 
@@ -49,7 +61,7 @@ If you deploy as a static site and don't add a backend:
 |-------------|-----------|------------------|
 | `npm run dev` | Yes (Vite proxy) | Yes, in client (dev only) |
 | `npm run preview` | Yes (Vite proxy) | Yes, in client |
-| Static deploy (Vercel/Netlify/etc.) | No (CORS) | Yes if key was set at build – **do not do this** |
-| Deploy with backend proxy | Yes | No (key stays on server) |
+| Static deploy (no proxy) | No (CORS) | N/A – don’t set key at build |
+| Deploy with serverless proxy (Vercel) | Yes | No (key stays on server) |
 
 Add a backend proxy before deploying to production if you want AI features to work securely.

@@ -1,30 +1,33 @@
 const API_KEY = import.meta.env.VITE_ANTHROPIC_API_KEY
 const ANTHROPIC_MODEL = 'claude-3-5-haiku-20241022'
 
-// Uses Vite proxy in dev (avoids CORS). In production, you MUST use a backend proxy
-// to avoid exposing your API key. See PRODUCTION.md for instructions.
+// Dev: Vite proxy forwards to Anthropic. Prod: Vercel serverless at same path adds key.
 const ANTHROPIC_API_URL = '/api/anthropic/v1/messages'
 
+/** In production with serverless proxy, AI is enabled via VITE_AI_PROXY_ENABLED (no key in client). */
+const isProxyMode = import.meta.env.PROD && import.meta.env.VITE_AI_PROXY_ENABLED === 'true'
+
 export function isAiAvailable(): boolean {
+  if (import.meta.env.PROD) {
+    return isProxyMode
+  }
   return Boolean(API_KEY && API_KEY.trim().length > 0)
 }
 
-if (import.meta.env.PROD && isAiAvailable()) {
-  console.warn(
-    '[SnaapMap] Production build detected with AI enabled. Your API key is exposed in the client bundle. ' +
-    'AI features will fail on a static deployment (CORS). Add a backend proxy before deploying. See PRODUCTION.md'
-  )
-}
-
 async function callAnthropic(systemPrompt: string, userContent: string): Promise<string> {
+  const headers: Record<string, string> = {
+    'Content-Type': 'application/json',
+    'anthropic-version': '2023-06-01',
+  }
+  // Only send API key in dev (Vite proxy forwards it). In prod the serverless proxy adds it.
+  if (!import.meta.env.PROD && API_KEY) {
+    headers['x-api-key'] = API_KEY
+    headers['anthropic-dangerous-direct-browser-access'] = 'true'
+  }
+
   const response = await fetch(ANTHROPIC_API_URL, {
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'x-api-key': API_KEY,
-      'anthropic-version': '2023-06-01',
-      'anthropic-dangerous-direct-browser-access': 'true',
-    },
+    headers,
     body: JSON.stringify({
       model: ANTHROPIC_MODEL,
       max_tokens: 1024,
@@ -51,7 +54,9 @@ export async function enhanceWithAi(
 ): Promise<string> {
   if (!isAiAvailable()) {
     throw new Error(
-      'AI is not configured. Add VITE_ANTHROPIC_API_KEY to your .env file.'
+      import.meta.env.PROD
+      ? 'AI is not configured. Set ANTHROPIC_API_KEY and VITE_AI_PROXY_ENABLED=true in Vercel.'
+      : 'AI is not configured. Add VITE_ANTHROPIC_API_KEY to your .env file.'
     )
   }
 
@@ -89,7 +94,9 @@ export async function suggestFieldValue(
 ): Promise<string> {
   if (!isAiAvailable()) {
     throw new Error(
-      'AI is not configured. Add VITE_ANTHROPIC_API_KEY to your .env file.'
+      import.meta.env.PROD
+      ? 'AI is not configured. Set ANTHROPIC_API_KEY and VITE_AI_PROXY_ENABLED=true in Vercel.'
+      : 'AI is not configured. Add VITE_ANTHROPIC_API_KEY to your .env file.'
     )
   }
 
@@ -133,7 +140,9 @@ export async function generateContextualExamples(
 ): Promise<GeneratedExamples> {
   if (!isAiAvailable()) {
     throw new Error(
-      'AI is not configured. Add VITE_ANTHROPIC_API_KEY to your .env file.'
+      import.meta.env.PROD
+      ? 'AI is not configured. Set ANTHROPIC_API_KEY and VITE_AI_PROXY_ENABLED=true in Vercel.'
+      : 'AI is not configured. Add VITE_ANTHROPIC_API_KEY to your .env file.'
     )
   }
 
