@@ -7,6 +7,9 @@ import {
   useState,
   type ReactNode,
 } from 'react'
+import { addDoc, collection } from 'firebase/firestore'
+import { db } from '../lib/firebase'
+import { useAuth } from './AuthContext'
 
 const STORAGE_KEY = 'snaapmap-user'
 
@@ -43,21 +46,36 @@ function saveUser(user: User) {
 }
 
 export function UserProvider({ children }: { children: ReactNode }) {
-  const [user, setUser] = useState<User | null>(() => loadUser())
+  const { firebaseUser } = useAuth()
+  const [localUser, setLocalUser] = useState<User | null>(() => loadUser())
+
+  const user = useMemo<User | null>(() => {
+    if (firebaseUser) {
+      return {
+        name: firebaseUser.displayName ?? '',
+        email: firebaseUser.email ?? '',
+      }
+    }
+    return localUser
+  }, [firebaseUser, localUser])
 
   const recordUser = useCallback((name: string, email: string) => {
     const trimmedName = name?.trim() ?? ''
     const trimmedEmail = email?.trim() ?? ''
     if (!trimmedName || !trimmedEmail) return
     const next: User = { name: trimmedName, email: trimmedEmail }
-    setUser(next)
+    setLocalUser(next)
     saveUser(next)
-    // TODO: POST to your API to record signups when you add a backend
+    addDoc(collection(db, 'signups'), {
+      name: trimmedName,
+      email: trimmedEmail,
+      createdAt: new Date().toISOString(),
+    }).catch(() => {})
   }, [])
 
   useEffect(() => {
-    setUser(loadUser())
-  }, [])
+    if (!firebaseUser) setLocalUser(loadUser())
+  }, [firebaseUser])
 
   const value = useMemo<UserContextValue>(
     () => ({ user, recordUser }),

@@ -1,0 +1,14 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Anonymous form signups: allow create only (no read)
+    match /signups/{id} {
+      allow create: if true;
+      allow read, update, delete: if false;
+    }
+    // Google (and other) signed-in users: own document only
+    match /users/{userId} {
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+    }
+  }
+}

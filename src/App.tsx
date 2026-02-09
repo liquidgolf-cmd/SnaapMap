@@ -1,4 +1,5 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
+import { AuthProvider } from './context/AuthContext'
 import { AuditProvider } from './context/AuditContext'
 import { PreferencesProvider } from './context/PreferencesContext'
 import { UserProvider } from './context/UserContext'
@@ -13,6 +14,7 @@ import { Splash } from './pages/Splash'
 
 function App() {
   return (
+    <AuthProvider>
     <UserProvider>
       <PreferencesProvider>
       <AuditProvider>
@@ -32,6 +34,7 @@ function App() {
       </AuditProvider>
       </PreferencesProvider>
     </UserProvider>
+    </AuthProvider>
   )
 }
 
