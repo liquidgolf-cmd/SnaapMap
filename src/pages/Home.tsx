@@ -42,9 +42,6 @@ export function Home() {
     <div className="max-w-4xl mx-auto space-y-10">
       {/* Guide / How it works */}
       <section className="text-center pt-4">
-        <h1 className="text-3xl font-bold text-slate-100 mb-2">
-          Guide
-        </h1>
         <p className="text-lg text-slate-400 mb-4">
           What to expect and how to use SnaapMap
         </p>

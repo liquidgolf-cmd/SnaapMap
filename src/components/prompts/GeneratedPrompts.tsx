@@ -76,8 +76,7 @@ export function GeneratedPrompts() {
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between">
-        <h2 className="text-lg font-semibold text-slate-100">Generated Prompts</h2>
+      <div className="flex items-center justify-end">
         <button
           type="button"
           onClick={handleCopyAll}

@@ -1,15 +1,5 @@
-import { Link, useLocation } from 'react-router-dom'
-import { useAudit } from '../../context/AuditContext'
+import { Link } from 'react-router-dom'
 import { usePreferences } from '../../context/PreferencesContext'
-import { getSectionById } from '../../data/auditQuestions'
-
-const routeTitles: Record<string, string> = {
-  '/app/audit': 'Audit',
-  '/app/guide': 'Guide',
-  '/app/mindmap': 'Mind Map',
-  '/app/prompts': 'Export',
-  '/app/settings': 'Settings',
-}
 
 interface HeaderProps {
   showFocusToggle?: boolean
@@ -22,16 +12,8 @@ export function Header({
   sidebarCollapsed = false,
   onToggleSidebar,
 }: HeaderProps) {
-  const location = useLocation()
   const { preferences } = usePreferences()
-  const { currentSectionId } = useAudit()
-  const section = currentSectionId ? getSectionById(currentSectionId) : null
   const logoSrc = preferences.theme === 'light' ? '/SnappMapLogo_light.png' : '/SnappMapLogo_dark.png'
-  const baseTitle = routeTitles[location.pathname] ?? 'SnaapMap'
-  const title =
-    location.pathname === '/app/audit' && section
-      ? `Step ${section.stepNum}: ${section.title}`
-      : baseTitle
 
   return (
     <header className="w-full bg-slate-800 border-b border-slate-600 flex items-center justify-between px-6 shrink-0 min-h-16 py-2">
@@ -59,7 +41,6 @@ export function Header({
             )}
           </button>
         )}
-        <h1 className="text-xl font-semibold text-slate-100 truncate">{title}</h1>
       </div>
       <div className="flex items-center gap-4 shrink-0">
         <button
