@@ -56,17 +56,6 @@ export function Sidebar() {
         </div>
         {!homeRunCollapsed && (
           <nav className="pb-3 space-y-1">
-            <div className="px-4 py-3 rounded-lg bg-blue-500/10 border border-blue-500/30 mb-2">
-              <div className="flex items-start gap-2">
-                <span className="text-blue-400 text-sm">ℹ️</span>
-                <div className="text-xs text-blue-200/90">
-                  <div className="font-medium mb-1">About HomeRun Method</div>
-                  <div className="text-blue-300/70">
-                    Complete the HomeRun Method to define your app idea and generate prompts for your vibe coder.
-                  </div>
-                </div>
-              </div>
-            </div>
             {STEPS.filter((s) => s.num <= 6).map((step) => {
               const section = auditSections.find((a) => a.id === step.id)
               const isCurrent = currentSectionId === step.id
