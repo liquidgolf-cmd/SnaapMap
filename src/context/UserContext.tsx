@@ -66,11 +66,13 @@ export function UserProvider({ children }: { children: ReactNode }) {
     const next: User = { name: trimmedName, email: trimmedEmail }
     setLocalUser(next)
     saveUser(next)
-    addDoc(collection(db, 'signups'), {
-      name: trimmedName,
-      email: trimmedEmail,
-      createdAt: new Date().toISOString(),
-    }).catch(() => {})
+    if (db) {
+      addDoc(collection(db, 'signups'), {
+        name: trimmedName,
+        email: trimmedEmail,
+        createdAt: new Date().toISOString(),
+      }).catch(() => {})
+    }
   }, [])
 
   useEffect(() => {

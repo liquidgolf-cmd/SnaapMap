@@ -1,6 +1,8 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import { AuthProvider } from './context/AuthContext'
 import { AuditProvider } from './context/AuditContext'
+import { FeedbackProvider } from './context/FeedbackContext'
+import { FeedbackModal } from './components/shared/FeedbackModal'
 import { PreferencesProvider } from './context/PreferencesContext'
 import { UserProvider } from './context/UserContext'
 import { MindMapZoomProvider } from './context/MindMapZoomContext'
@@ -10,17 +12,21 @@ import { Home } from './pages/Home'
 import { MindMap } from './pages/MindMap'
 import { Prompts } from './pages/Prompts'
 import { Settings } from './pages/Settings'
+import { SignIn } from './pages/SignIn'
 import { Splash } from './pages/Splash'
 
 function App() {
   return (
     <AuthProvider>
     <UserProvider>
+      <FeedbackProvider>
+      <FeedbackModal />
       <PreferencesProvider>
       <AuditProvider>
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Splash />} />
+            <Route path="/signin" element={<SignIn />} />
             <Route path="app" element={<MindMapZoomProvider><MainLayout /></MindMapZoomProvider>}>
               <Route index element={<Navigate to="/app/audit" replace />} />
               <Route path="audit" element={<Dashboard />} />
@@ -33,6 +39,7 @@ function App() {
         </BrowserRouter>
       </AuditProvider>
       </PreferencesProvider>
+      </FeedbackProvider>
     </UserProvider>
     </AuthProvider>
   )

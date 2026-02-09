@@ -28,9 +28,13 @@ const AuthContext = createContext<AuthContextValue | null>(null)
 
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [firebaseUser, setFirebaseUser] = useState<FirebaseUser | null>(null)
-  const [authLoading, setAuthLoading] = useState(true)
+  const [authLoading, setAuthLoading] = useState(!!auth)
 
   useEffect(() => {
+    if (!auth) {
+      setAuthLoading(false)
+      return
+    }
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       setFirebaseUser(user)
       setAuthLoading(false)
@@ -39,6 +43,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, [])
 
   const signInWithGoogle = useCallback(async () => {
+    if (!auth || !db) return
     const provider = new GoogleAuthProvider()
     const result = await signInWithPopup(auth, provider)
     const { uid, displayName, email } = result.user
@@ -54,7 +59,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, [])
 
   const signOut = useCallback(async () => {
-    await firebaseSignOut(auth)
+    if (auth) await firebaseSignOut(auth)
   }, [])
 
   const value = useMemo<AuthContextValue>(

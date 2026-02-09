@@ -1,15 +1,20 @@
 import { initializeApp } from 'firebase/app'
-import { getAuth } from 'firebase/auth'
-import { getFirestore } from 'firebase/firestore'
+import { getAuth, type Auth } from 'firebase/auth'
+import { getFirestore, type Firestore } from 'firebase/firestore'
 
-const config = {
-  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
-  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
-  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
-  appId: import.meta.env.VITE_FIREBASE_APP_ID,
-  measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID,
-}
+const apiKey = import.meta.env.VITE_FIREBASE_API_KEY
+const hasConfig = typeof apiKey === 'string' && apiKey.length > 0
 
-export const firebaseApp = initializeApp(config)
-export const auth = getAuth(firebaseApp)
-export const db = getFirestore(firebaseApp)
+const config = hasConfig
+  ? {
+      apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+      authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+      projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+      appId: import.meta.env.VITE_FIREBASE_APP_ID,
+      measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID,
+    }
+  : null
+
+export const firebaseApp = hasConfig && config ? initializeApp(config) : null
+export const auth: Auth | null = firebaseApp ? getAuth(firebaseApp) : null
+export const db: Firestore | null = firebaseApp ? getFirestore(firebaseApp) : null

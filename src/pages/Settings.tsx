@@ -2,12 +2,14 @@ import { useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { isAiAvailable } from '../lib/ai'
 import { useAudit } from '../context/AuditContext'
+import { useFeedback } from '../context/FeedbackContext'
 import { usePreferences } from '../context/PreferencesContext'
 import type { Theme } from '../context/PreferencesContext'
 
 export function Settings() {
   const navigate = useNavigate()
   const { responses, sessionId, startNewSession, clearMindMap, setResponses } = useAudit()
+  const { openFeedback } = useFeedback()
   const { preferences, setTheme, setSidebarStartsCollapsed, setConfirmDestructive } = usePreferences()
   const fileInputRef = useRef<HTMLInputElement>(null)
   const [importError, setImportError] = useState<string | null>(null)
@@ -167,6 +169,20 @@ export function Settings() {
           <p className="mt-3 text-xs text-slate-500">
             Current session: <code className="bg-slate-800 px-1 rounded text-slate-400">{sessionId}</code>
           </p>
+        </div>
+
+        <div className="border-t border-slate-600 pt-6">
+          <h3 className="font-medium text-slate-300 mb-2">Feedback</h3>
+          <p className="text-sm text-slate-400 mb-3">
+            Help us improve by leaving a comment or feedback.
+          </p>
+          <button
+            type="button"
+            onClick={openFeedback}
+            className="px-4 py-2 rounded-lg border border-slate-600 text-slate-300 hover:bg-slate-600 transition-colors text-sm"
+          >
+            Leave feedback
+          </button>
         </div>
 
         <div className="border-t border-slate-600 pt-6">

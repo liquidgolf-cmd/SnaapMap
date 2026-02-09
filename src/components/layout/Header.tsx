@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import { useFeedback } from '../../context/FeedbackContext'
 import { usePreferences } from '../../context/PreferencesContext'
 
 interface HeaderProps {
@@ -12,6 +13,7 @@ export function Header({
   sidebarCollapsed = false,
   onToggleSidebar,
 }: HeaderProps) {
+  const { openFeedback } = useFeedback()
   const { preferences } = usePreferences()
   const logoSrc = preferences.theme === 'light' ? '/SnappMapLogo_light.png' : '/SnappMapLogo_dark.png'
 
@@ -43,6 +45,13 @@ export function Header({
         )}
       </div>
       <div className="flex items-center gap-4 shrink-0">
+        <button
+          type="button"
+          onClick={openFeedback}
+          className="text-sm text-slate-400 hover:text-slate-200 transition-colors"
+        >
+          Leave feedback
+        </button>
         <button
           type="button"
           className="text-sm text-slate-400 hover:text-slate-200 transition-colors"
