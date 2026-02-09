@@ -2,12 +2,29 @@ import { useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { isAiAvailable } from '../lib/ai'
 import { useAudit } from '../context/AuditContext'
+import { usePreferences } from '../context/PreferencesContext'
+import type { Theme } from '../context/PreferencesContext'
 
 export function Settings() {
   const navigate = useNavigate()
   const { responses, sessionId, startNewSession, clearMindMap, setResponses } = useAudit()
+  const { preferences, setTheme, setSidebarStartsCollapsed, setConfirmDestructive } = usePreferences()
   const fileInputRef = useRef<HTMLInputElement>(null)
   const [importError, setImportError] = useState<string | null>(null)
+
+  const handleStartNewSession = () => {
+    if (preferences.confirmDestructive && !window.confirm('Start a new session? Your current audit data will be replaced. You can export it first if you want to keep a copy.')) {
+      return
+    }
+    startNewSession()
+  }
+
+  const handleClearMindMap = () => {
+    if (preferences.confirmDestructive && !window.confirm('Clear the mind map? This cannot be undone.')) {
+      return
+    }
+    clearMindMap()
+  }
 
   const handleExport = () => {
     const data = JSON.stringify({ sessionId, responses, exportedAt: new Date().toISOString() }, null, 2)
@@ -63,6 +80,47 @@ export function Settings() {
 
       <div className="bg-slate-700 rounded-xl shadow-sm border border-slate-600 p-6 space-y-6">
         <div>
+          <h3 className="font-medium text-slate-300 mb-2">Preferences</h3>
+          <p className="text-sm text-slate-400 mb-4">
+            Appearance and behavior. Changes are saved automatically.
+          </p>
+          <div className="space-y-4">
+            <div>
+              <label htmlFor="settings-theme" className="block text-sm font-medium text-slate-300 mb-1">
+                Theme
+              </label>
+              <select
+                id="settings-theme"
+                value={preferences.theme}
+                onChange={(e) => setTheme(e.target.value as Theme)}
+                className="px-3 py-2 rounded-lg bg-slate-800 border border-slate-600 text-slate-200 text-sm"
+              >
+                <option value="dark">Dark</option>
+                <option value="light">Light</option>
+              </select>
+            </div>
+            <label className="flex items-center gap-2 cursor-pointer">
+              <input
+                type="checkbox"
+                checked={preferences.sidebarStartsCollapsed}
+                onChange={(e) => setSidebarStartsCollapsed(e.target.checked)}
+                className="rounded border-slate-600 bg-slate-800 text-blue-500 focus:ring-blue-500"
+              />
+              <span className="text-sm text-slate-300">Sidebar starts collapsed</span>
+            </label>
+            <label className="flex items-center gap-2 cursor-pointer">
+              <input
+                type="checkbox"
+                checked={preferences.confirmDestructive}
+                onChange={(e) => setConfirmDestructive(e.target.checked)}
+                className="rounded border-slate-600 bg-slate-800 text-blue-500 focus:ring-blue-500"
+              />
+              <span className="text-sm text-slate-300">Confirm before destructive actions (e.g. Clear Mind Map, Start New Session)</span>
+            </label>
+          </div>
+        </div>
+
+        <div className="border-t border-slate-600 pt-6">
           <h3 className="font-medium text-slate-300 mb-2">Data & Sessions</h3>
           <p className="text-sm text-slate-400 mb-4">
             Manage your audit data and sessions. Data is saved automatically as you type.
@@ -70,7 +128,7 @@ export function Settings() {
           <div className="flex flex-wrap gap-3">
             <button
               type="button"
-              onClick={startNewSession}
+              onClick={handleStartNewSession}
               className="px-4 py-2 rounded-lg bg-slate-600 text-slate-200 hover:bg-slate-500 transition-colors text-sm"
             >
               Start New Session
@@ -98,7 +156,7 @@ export function Settings() {
             />
             <button
               type="button"
-              onClick={clearMindMap}
+              onClick={handleClearMindMap}
               className="px-4 py-2 rounded-lg border border-slate-600 text-slate-300 hover:bg-slate-600 transition-colors text-sm"
             >
               Clear Mind Map

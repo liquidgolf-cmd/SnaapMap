@@ -13,8 +13,17 @@
 @layer base {
   body {
     font-family: var(--font-sans);
+  }
+
+  [data-theme="dark"] body,
+  body {
     background-color: #1e293b;
     color: #f1f5f9;
+  }
+
+  [data-theme="light"] body {
+    background-color: #f1f5f9;
+    color: #0f172a;
   }
 }
 

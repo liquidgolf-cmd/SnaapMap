@@ -1,5 +1,6 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Outlet, useLocation } from 'react-router-dom'
+import { usePreferences } from '../../context/PreferencesContext'
 import { Sidebar } from './Sidebar'
 import { Header } from './Header'
 import { RightPanel } from './RightPanel'
@@ -9,8 +10,21 @@ import { StepIndicator } from '../progress/StepIndicator'
 
 export function MainLayout() {
   const location = useLocation()
+  const { preferences, setSidebarStartsCollapsed } = usePreferences()
   const isAuditRoute = location.pathname === '/app/audit'
-  const [sidebarCollapsed, setSidebarCollapsed] = useState(false)
+  const [sidebarCollapsed, setSidebarCollapsed] = useState(preferences.sidebarStartsCollapsed)
+
+  useEffect(() => {
+    setSidebarCollapsed(preferences.sidebarStartsCollapsed)
+  }, [preferences.sidebarStartsCollapsed])
+
+  const onToggleSidebar = () => {
+    setSidebarCollapsed((c) => {
+      const next = !c
+      setSidebarStartsCollapsed(next)
+      return next
+    })
+  }
 
   return (
     <div className="min-h-screen bg-slate-800 flex">
@@ -19,7 +33,7 @@ export function MainLayout() {
         <Header
           showFocusToggle={isAuditRoute || sidebarCollapsed}
           sidebarCollapsed={sidebarCollapsed}
-          onToggleSidebar={() => setSidebarCollapsed((c) => !c)}
+          onToggleSidebar={onToggleSidebar}
         />
         <main className="flex-1 flex min-h-0">
           <div className="flex-1 overflow-auto p-6">

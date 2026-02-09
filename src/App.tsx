@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import { AuditProvider } from './context/AuditContext'
+import { PreferencesProvider } from './context/PreferencesContext'
 import { UserProvider } from './context/UserContext'
 import { MindMapZoomProvider } from './context/MindMapZoomContext'
 import { MainLayout } from './components/layout/MainLayout'
@@ -13,6 +14,7 @@ import { Splash } from './pages/Splash'
 function App() {
   return (
     <UserProvider>
+      <PreferencesProvider>
       <AuditProvider>
         <BrowserRouter>
           <Routes>
@@ -28,6 +30,7 @@ function App() {
           </Routes>
         </BrowserRouter>
       </AuditProvider>
+      </PreferencesProvider>
     </UserProvider>
   )
 }
