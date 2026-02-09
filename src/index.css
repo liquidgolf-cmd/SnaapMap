@@ -22,8 +22,8 @@
 }
 
 [data-theme="light"] {
-  --app-bg: #f1f5f9;
-  --app-surface: #e2e8f0;
+  --app-bg: #e5e7eb;
+  --app-surface: #d1d5db;
   --app-surface-alt: #cbd5e1;
   --app-border: #cbd5e1;
   --app-text: #0f172a;

@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Link, NavLink, useNavigate } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 import { useAudit } from '../../context/AuditContext'
 import { useMindMapZoom } from '../../context/MindMapZoomContext'
 import { STEPS } from '../../data/steps'
@@ -14,14 +14,8 @@ export function Sidebar() {
   const { zoomIn, zoomOut, fitView, isAvailable } = useMindMapZoom()
 
   return (
-    <aside className="w-64 h-screen overflow-auto bg-slate-900 text-white flex flex-col shrink-0">
-      <div className="p-6 border-b border-slate-700 shrink-0 flex flex-col items-center">
-        <Link to="/" className="flex flex-col items-center" aria-label="SnaapMap home">
-          <img src="/snappmaplogo.png" alt="SnaapMap" className="h-10 w-auto" />
-        </Link>
-        <p className="text-sm text-slate-400 mt-0.5 text-center">Vibe Coder Prompt Tool</p>
-      </div>
-      <div className="shrink-0 border-b border-slate-700 px-4 pb-3 space-y-1">
+    <aside className="w-64 h-full overflow-auto bg-slate-900 text-white flex flex-col shrink-0">
+      <div className="shrink-0 border-b border-slate-700 px-4 pt-4 pb-3 space-y-1">
         <NavLink
           to="/app/audit"
           className={({ isActive }) =>

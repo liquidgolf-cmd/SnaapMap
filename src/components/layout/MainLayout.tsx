@@ -27,30 +27,32 @@ export function MainLayout() {
   }
 
   return (
-    <div className="app-layout min-h-screen bg-slate-800 flex">
-      {!sidebarCollapsed && <Sidebar />}
-      <div className="flex-1 flex flex-col min-w-0">
-        <Header
-          showFocusToggle={isAuditRoute || sidebarCollapsed}
-          sidebarCollapsed={sidebarCollapsed}
-          onToggleSidebar={onToggleSidebar}
-        />
-        <main className="flex-1 flex min-h-0">
-          <div className="flex-1 overflow-auto p-6">
-            <Outlet />
-          </div>
-          {!isAuditRoute && (
-            <RightPanel title="Chat & Questions">
-              <div className="space-y-6">
-                <ProgressBar />
-                <StepIndicator />
-                <div className="border-t border-slate-600 pt-4">
-                  <QuestionFlow />
+    <div className="app-layout min-h-screen bg-slate-800 flex flex-col">
+      <Header
+        showFocusToggle={isAuditRoute || sidebarCollapsed}
+        sidebarCollapsed={sidebarCollapsed}
+        onToggleSidebar={onToggleSidebar}
+      />
+      <div className="flex flex-1 min-h-0">
+        {!sidebarCollapsed && <Sidebar />}
+        <div className="flex-1 flex flex-col min-w-0">
+          <main className="flex-1 flex min-h-0">
+            <div className="flex-1 overflow-auto p-6">
+              <Outlet />
+            </div>
+            {!isAuditRoute && (
+              <RightPanel title="Chat & Questions">
+                <div className="space-y-6">
+                  <ProgressBar />
+                  <StepIndicator />
+                  <div className="border-t border-slate-600 pt-4">
+                    <QuestionFlow />
+                  </div>
                 </div>
-              </div>
-            </RightPanel>
-          )}
-        </main>
+              </RightPanel>
+            )}
+          </main>
+        </div>
       </div>
     </div>
   )

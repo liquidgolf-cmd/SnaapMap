@@ -31,14 +31,15 @@ export function Header({
       : baseTitle
 
   return (
-    <header className="h-16 bg-slate-800 border-b border-slate-600 flex items-center justify-between px-6 shrink-0">
+    <header className="w-full bg-slate-800 border-b border-slate-600 flex items-center justify-between px-6 shrink-0 min-h-16 py-2">
       <div className="flex items-center gap-4 min-w-0">
         <Link
           to="/"
-          className="shrink-0 flex items-center"
+          className="shrink-0 flex flex-col items-center gap-0.5"
           aria-label="SnaapMap home"
         >
           <img src="/snappmaplogo.png" alt="SnaapMap" className="h-8 w-auto" />
+          <span className="text-xs text-slate-400">Vibe Coder Prompt Tool</span>
         </Link>
         {showFocusToggle && onToggleSidebar && (
           <button
