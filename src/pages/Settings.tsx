@@ -114,10 +114,7 @@ export function Settings() {
 
         <div className="border-t border-slate-600 pt-6">
           <h3 className="font-medium text-slate-300 mb-2">AI Enhancement</h3>
-          <p className="text-sm text-slate-400 mb-2">
-            Add <code className="bg-slate-800 px-1 rounded text-slate-300">VITE_ANTHROPIC_API_KEY</code> to
-            your <code className="bg-slate-800 px-1 rounded text-slate-300">.env</code> file to enable:
-          </p>
+          <p className="text-sm text-slate-400 mb-2">When enabled, AI provides:</p>
           <ul className="text-sm text-slate-400 list-disc list-inside space-y-1">
             <li>Prompt AI buttons in audit questions</li>
             <li>Enhance with AI for generated prompts</li>

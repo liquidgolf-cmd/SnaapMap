@@ -49,8 +49,8 @@ export function Home() {
           What to expect and how to use SnaapMap
         </p>
         <p className="text-slate-300 max-w-2xl mx-auto">
-          The HomeRun Method is a 7-step process to define your app idea and
-          generate prompts for AI coding tools like Cursor, Bolt, Lovable, or Replit.
+          The HomeRun Method helps you define your app idea and generate prompts for
+          AI coding tools like Cursor, Bolt, Lovable, or Replit.
         </p>
       </section>
 
@@ -66,7 +66,7 @@ export function Home() {
                 {progressPercent}%
               </span>
               <span className="text-slate-400 text-sm">
-                ({completedCount} of {auditStepsCount} steps completed)
+                ({completedCount} of {auditStepsCount} sections completed)
               </span>
             </div>
             <button
@@ -96,7 +96,7 @@ export function Home() {
               {completedCount > 0 ? 'Continue' : 'Start'} Audit
             </span>
             <span className="text-sm text-slate-400 mt-1">
-              Complete the 6-step HomeRun Method
+              Complete the HomeRun Method
             </span>
           </button>
           <Link
@@ -138,7 +138,7 @@ export function Home() {
           Getting started
         </h2>
         <ol className="list-decimal list-inside space-y-2 text-slate-300 text-sm">
-          <li>Complete the 6-step audit (Foundation through Impact).</li>
+          <li>Complete the audit (Foundation through Impact).</li>
           <li>Review and edit your mind map to visualize relationships.</li>
           <li>Go to Export and generate prompts from your answers.</li>
           <li>Copy or download prompts and use them with your vibe coder.</li>

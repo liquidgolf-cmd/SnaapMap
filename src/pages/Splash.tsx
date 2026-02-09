@@ -85,7 +85,7 @@ export function Splash() {
         <ul className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-slate-300 text-sm">
           <li className="flex items-start gap-2">
             <span className="text-blue-400 shrink-0">✓</span>
-            <span>7-step HomeRun Method audit to define your app</span>
+            <span>HomeRun Method audit to define your app</span>
           </li>
           <li className="flex items-start gap-2">
             <span className="text-blue-400 shrink-0">✓</span>

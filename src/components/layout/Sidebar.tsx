@@ -68,7 +68,7 @@ export function Sidebar() {
                 <div className="text-xs text-blue-200/90">
                   <div className="font-medium mb-1">About HomeRun Method</div>
                   <div className="text-blue-300/70">
-                    Complete 6 steps to define your app idea and generate prompts for your vibe coder.
+                    Complete the HomeRun Method to define your app idea and generate prompts for your vibe coder.
                   </div>
                 </div>
               </div>
