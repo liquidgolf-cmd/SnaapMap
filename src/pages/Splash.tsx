@@ -18,7 +18,7 @@ export function Splash() {
           alt="SnappMap"
           className="h-16 w-auto mx-auto mb-6"
         />
-        <h1 className="text-4xl font-bold text-slate-100 mb-3">
+        <h1 className="text-6xl font-black text-slate-100 mb-3 font-sans tracking-tight">
           Welcome to SnappMap
         </h1>
         <p className="text-xl text-slate-400 max-w-2xl mx-auto">
