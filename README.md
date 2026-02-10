@@ -1,6 +1,6 @@
 # SnappMap
 
-A tool that helps you gather all pertinent information needed to build an app with a vibe coder. It guides you through a structured audit and generates prompts ready for tools like Lovable, Bolt, Cursor, or Replit.
+For non-technical solo entrepreneurs building with AI who keep abandoning half-finished projects. SnappMap guides you through a structured audit and generates prompts ready for Cursor, Bolt, Lovable, or Replit.
 
 ## Features
 

@@ -60,8 +60,8 @@ export async function enhanceWithAi(
     )
   }
 
-  const systemPrompt = `You are a helpful assistant that refines prompts for vibe coders (AI-powered app builders like Lovable, Bolt, Cursor, or Replit). 
-Given a prompt or template output, return an improved, more specific version that will help the vibe coder build the app more accurately.
+  const systemPrompt = `You are a helpful assistant that refines prompts for AI-powered app builders (e.g. Lovable, Bolt, Cursor, Replit).
+Given a prompt or template output, return an improved, more specific version that will help the tool build the app more accurately.
 Keep the same intent but add clarity, structure, and useful details. Return only the refined prompt, no preamble.`
 
   const userContent = context
@@ -114,7 +114,7 @@ export async function suggestFieldValue(
     contextStr = ''
   }
 
-  const systemPrompt = `You help users refine their app audit answers for vibe coders (AI-powered app builders). Use the full conversation context—section, prior answers, and the user's app idea—to suggest a more specific, actionable answer. Stay true to their app; do not invent a different product. Return only the suggested text, no preamble or explanation.`
+  const systemPrompt = `You help users refine their app audit answers for AI-powered app builders. Use the full conversation context—section, prior answers, and the user's app idea—to suggest a more specific, actionable answer. Stay true to their app; do not invent a different product. Return only the suggested text, no preamble or explanation.`
 
   const userContent = contextStr
     ? `Context from the audit so far:\n${contextStr}\n\nCurrent question: ${fieldLabel}\nCurrent answer: ${currentValue || '(empty)'}\n\nSuggest a better or more specific answer based on this context. Return only the suggested value.`

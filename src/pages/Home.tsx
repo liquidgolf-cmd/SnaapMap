@@ -138,7 +138,7 @@ export function Home() {
           <li>Complete the audit (Foundation through Impact).</li>
           <li>Review and edit your mind map to visualize relationships.</li>
           <li>Go to Export and generate prompts from your answers.</li>
-          <li>Copy or download prompts and use them with your vibe coder.</li>
+          <li>Copy or download prompts and use them with Cursor, Bolt, Lovable, or Replit.</li>
         </ol>
         <ul className="mt-4 space-y-1 text-slate-400 text-sm list-disc list-inside">
           <li>You can return to any step later; progress is saved automatically.</li>

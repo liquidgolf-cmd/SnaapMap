@@ -22,7 +22,7 @@ export function Splash() {
           Welcome to SnappMap
         </h1>
         <p className="text-xl text-slate-400 max-w-2xl mx-auto">
-          Your Vibe Coder Prompt Tool
+          For non-technical solo entrepreneurs building with AI who keep abandoning half-finished projects
         </p>
         <p className="text-slate-300 mt-4 max-w-xl mx-auto">
           Stop wasting weeks building the wrong features with AI. Get a complete product blueprint in 30 minutes, so every line of AI-generated code actually fits together.
@@ -63,7 +63,7 @@ export function Splash() {
           </li>
           <li className="flex items-start gap-2">
             <span className="text-red-400 shrink-0">✓</span>
-            <span>Export prompts ready for your vibe coder</span>
+            <span>Export prompts ready for AI coding tools</span>
           </li>
           <li className="flex items-start gap-2">
             <span className="text-red-400 shrink-0">✓</span>

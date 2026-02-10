@@ -10,7 +10,7 @@ export const promptTemplates: PromptTemplate[] = [
   {
     id: 'mvp-main',
     title: 'MVP Build Prompt',
-    description: 'Main prompt to build your MVP with a vibe coder',
+    description: 'Main prompt to build your MVP with an AI coding tool',
     template: `Build an app called "{{app_name}}" for {{primary_users}}.
 
 **What it does:**

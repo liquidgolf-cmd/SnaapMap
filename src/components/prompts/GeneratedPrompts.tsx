@@ -86,7 +86,7 @@ export function GeneratedPrompts() {
         </button>
       </div>
       <p className="text-sm text-slate-400">
-        Use these prompts with your vibe coder to build your MVP. Complete the
+        Use these prompts with your AI coding tool to build your MVP. Complete the
         audit for more detailed prompts.
       </p>
       {!isAiAvailable() && (

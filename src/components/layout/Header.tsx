@@ -58,7 +58,7 @@ export function Header({
           aria-label="SnappMap home"
         >
           <img src={logoSrc} alt="SnappMap" className="h-8 w-auto" />
-          <span className="text-xs text-slate-400">Vibe Coder Prompt Tool</span>
+          <span className="text-xs text-slate-400">For solo founders building with AI</span>
         </Link>
         {showFocusToggle && onToggleSidebar && (
           <button
