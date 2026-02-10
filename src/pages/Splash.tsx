@@ -21,6 +21,9 @@ export function Splash() {
         <h1 className="text-6xl font-black text-slate-100 mb-3 font-sans tracking-tight">
           Welcome to SnappMap
         </h1>
+        <p className="text-2xl font-bold text-slate-100 mb-4 font-sans">
+          Build the RIGHT app with AI, not just ANY app
+        </p>
         <p className="text-xl text-slate-400 max-w-2xl mx-auto">
           For non-technical solo entrepreneurs building with AI who keep abandoning half-finished projects
         </p>
@@ -55,7 +58,7 @@ export function Splash() {
         <ul className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-slate-300 text-sm">
           <li className="flex items-start gap-2">
             <span className="text-red-400 shrink-0">✓</span>
-            <span>HomeRun Method audit to define your app</span>
+            <span>Stop second-guessing your decisions - know exactly what to build</span>
           </li>
           <li className="flex items-start gap-2">
             <span className="text-red-400 shrink-0">✓</span>
@@ -63,7 +66,7 @@ export function Splash() {
           </li>
           <li className="flex items-start gap-2">
             <span className="text-red-400 shrink-0">✓</span>
-            <span>Export prompts ready for AI coding tools</span>
+            <span>Generate specs so detailed that AI builds it right the first time</span>
           </li>
           <li className="flex items-start gap-2">
             <span className="text-red-400 shrink-0">✓</span>
