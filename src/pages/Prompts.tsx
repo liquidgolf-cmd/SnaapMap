@@ -53,7 +53,7 @@ export function Prompts() {
             <button
               type="button"
               onClick={handleLeaveFeedback}
-              className="px-3 py-1.5 rounded-lg bg-blue-500 text-white hover:bg-blue-600 transition-colors text-sm"
+              className="px-3 py-1.5 rounded-lg bg-red-500 text-white hover:bg-red-600 transition-colors text-sm"
             >
               Leave feedback
             </button>

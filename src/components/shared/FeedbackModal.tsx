@@ -82,7 +82,7 @@ export function FeedbackModal() {
                 required
                 rows={4}
                 placeholder="Tell us what you think..."
-                className="w-full px-4 py-2 rounded-lg bg-slate-800 border border-slate-600 text-slate-100 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-y"
+                className="w-full px-4 py-2 rounded-lg bg-slate-800 border border-slate-600 text-slate-100 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent resize-y"
               />
             </div>
             {user?.email && (
@@ -104,7 +104,7 @@ export function FeedbackModal() {
               <button
                 type="submit"
                 disabled={submitting || !text.trim()}
-                className="px-4 py-2 rounded-lg bg-blue-500 text-white hover:bg-blue-600 disabled:opacity-50 transition-colors text-sm"
+                className="px-4 py-2 rounded-lg bg-red-500 text-white hover:bg-red-600 disabled:opacity-50 transition-colors text-sm"
               >
                 {submitting ? 'Sending…' : 'Send feedback'}
               </button>

@@ -28,7 +28,7 @@ export function StepIndicator() {
             <span
               className={`w-5 h-5 rounded-full flex items-center justify-center text-xs shrink-0 ${
                 isCurrent
-                  ? 'bg-blue-500 text-white'
+                  ? 'bg-red-500 text-white'
                   : isCompleted
                     ? 'bg-green-500 text-white'
                     : 'bg-slate-600 text-slate-400'

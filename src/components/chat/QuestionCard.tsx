@@ -90,7 +90,7 @@ export function QuestionCard({ question, value, onChange }: QuestionCardProps) {
             onChange={(e) => onChange(e.target.value)}
             placeholder={question.placeholder}
             rows={4}
-            className="w-full px-4 py-2 rounded-lg border border-slate-600 bg-slate-700 text-slate-100 placeholder-slate-500 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-colors resize-none"
+            className="w-full px-4 py-2 rounded-lg border border-slate-600 bg-slate-700 text-slate-100 placeholder-slate-500 focus:border-red-500 focus:ring-1 focus:ring-red-500 transition-colors resize-none"
           />
           {error && <p className="text-xs text-red-500">{error}</p>}
           {showExampleModal && (
@@ -132,7 +132,7 @@ export function QuestionCard({ question, value, onChange }: QuestionCardProps) {
             id={question.id}
             value={stringValue}
             onChange={(e) => onChange(e.target.value)}
-            className="w-full px-4 py-2 rounded-lg border border-slate-600 bg-slate-700 text-slate-100 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-colors"
+            className="w-full px-4 py-2 rounded-lg border border-slate-600 bg-slate-700 text-slate-100 focus:border-red-500 focus:ring-1 focus:ring-red-500 transition-colors"
           >
             <option value="">Select an option...</option>
             {question.options?.map((opt) => (
@@ -188,7 +188,7 @@ export function QuestionCard({ question, value, onChange }: QuestionCardProps) {
                       : arrayValue.filter((v) => v !== opt.value)
                     onChange(next)
                   }}
-                  className="rounded border-slate-300 text-blue-600 focus:ring-blue-500"
+                  className="rounded border-slate-300 text-red-600 focus:ring-red-500"
                 />
                 <span className="text-sm text-slate-300">{opt.label}</span>
               </label>
@@ -247,7 +247,7 @@ export function QuestionCard({ question, value, onChange }: QuestionCardProps) {
             value={stringValue}
             onChange={(e) => onChange(e.target.value)}
             placeholder={question.placeholder}
-            className="w-full px-4 py-2 rounded-lg border border-slate-600 bg-slate-700 text-slate-100 placeholder-slate-500 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-colors"
+            className="w-full px-4 py-2 rounded-lg border border-slate-600 bg-slate-700 text-slate-100 placeholder-slate-500 focus:border-red-500 focus:ring-1 focus:ring-red-500 transition-colors"
           />
           {error && <p className="text-xs text-red-500">{error}</p>}
           {showExampleModal && (

@@ -105,7 +105,7 @@ export function Settings() {
                 type="checkbox"
                 checked={preferences.sidebarStartsCollapsed}
                 onChange={(e) => setSidebarStartsCollapsed(e.target.checked)}
-                className="rounded border-slate-600 bg-slate-800 text-blue-500 focus:ring-blue-500"
+                className="rounded border-slate-600 bg-slate-800 text-red-500 focus:ring-red-500"
               />
               <span className="text-sm text-slate-300">Sidebar starts collapsed</span>
             </label>
@@ -114,7 +114,7 @@ export function Settings() {
                 type="checkbox"
                 checked={preferences.confirmDestructive}
                 onChange={(e) => setConfirmDestructive(e.target.checked)}
-                className="rounded border-slate-600 bg-slate-800 text-blue-500 focus:ring-blue-500"
+                className="rounded border-slate-600 bg-slate-800 text-red-500 focus:ring-red-500"
               />
               <span className="text-sm text-slate-300">Confirm before destructive actions (e.g. Clear Mind Map, Start New Session)</span>
             </label>

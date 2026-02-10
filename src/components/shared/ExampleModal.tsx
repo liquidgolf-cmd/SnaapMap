@@ -105,7 +105,7 @@ export function ExampleModal({
                 type="button"
                 onClick={handleGenerateAi}
                 disabled={aiLoading}
-                className="px-3 py-1.5 rounded-lg bg-blue-600 text-slate-100 hover:bg-blue-500 disabled:opacity-50 text-sm transition-colors"
+                className="px-3 py-1.5 rounded-lg bg-red-600 text-slate-100 hover:bg-red-500 disabled:opacity-50 text-sm transition-colors"
               >
                 {aiLoading ? 'Generating...' : viewMode === 'ai' ? 'Regenerate' : 'Generate with AI'}
               </button>
@@ -134,7 +134,7 @@ export function ExampleModal({
               Canned
             </button>
             {viewMode === 'ai' && (
-              <span className="px-3 py-1.5 rounded-lg bg-blue-600/20 text-blue-400 text-sm">
+              <span className="px-3 py-1.5 rounded-lg bg-red-600/20 text-red-400 text-sm">
                 AI Generated
               </span>
             )}
@@ -156,7 +156,7 @@ export function ExampleModal({
         )}
         {!hasExamplesForField(fieldId) && canGenerateAi && (
           <div className="flex flex-wrap gap-2 p-4 border-b border-slate-600 shrink-0">
-            <span className="px-3 py-1.5 rounded-lg bg-blue-600/20 text-blue-400 text-sm">
+            <span className="px-3 py-1.5 rounded-lg bg-red-600/20 text-red-400 text-sm">
               {viewMode === 'ai' ? 'AI Generated' : 'Generate contextual examples'}
             </span>
           </div>
@@ -211,7 +211,7 @@ export function ExampleModal({
                 type="button"
                 onClick={handleGenerateAi}
                 disabled={aiLoading}
-                className="px-4 py-2 rounded-lg bg-blue-600 text-slate-100 hover:bg-blue-500 disabled:opacity-50 transition-colors"
+                className="px-4 py-2 rounded-lg bg-red-600 text-slate-100 hover:bg-red-500 disabled:opacity-50 transition-colors"
               >
                 {aiLoading ? 'Generating...' : 'Generate with AI'}
               </button>

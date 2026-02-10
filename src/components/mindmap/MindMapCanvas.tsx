@@ -47,7 +47,7 @@ function MindMapNode({ data, id, selected }: MindMapNodeProps) {
   const isBenefit = type === 'benefit'
 
   const bgClass = isRoot || isApp
-    ? 'bg-blue-500 text-white'
+    ? 'bg-red-500 text-white'
     : isFeature
       ? 'bg-slate-600 border-slate-500'
       : isUser
@@ -98,7 +98,7 @@ function MindMapNode({ data, id, selected }: MindMapNodeProps) {
 
   return (
     <div
-      className={`px-4 py-2 rounded-xl border-2 shadow-sm min-w-[120px] text-center font-medium text-sm relative ${bgClass} ${selected ? 'ring-2 ring-blue-400' : ''}`}
+      className={`px-4 py-2 rounded-xl border-2 shadow-sm min-w-[120px] text-center font-medium text-sm relative ${bgClass} ${selected ? 'ring-2 ring-red-400' : ''}`}
       onDoubleClick={handleDoubleClick}
     >
       <Handle type="target" position={Position.Top} className="!bg-slate-400" />

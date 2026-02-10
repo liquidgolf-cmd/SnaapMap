@@ -29,7 +29,7 @@ export function Splash() {
         </p>
         <Link
           to="/signin"
-          className="inline-block mt-6 px-6 py-3 rounded-lg bg-blue-500 text-white font-medium hover:bg-blue-600 transition-colors"
+          className="inline-block mt-6 px-6 py-3 rounded-lg bg-red-500 text-white font-medium hover:bg-red-600 transition-colors"
         >
           Get started
         </Link>
@@ -54,19 +54,19 @@ export function Splash() {
         </h2>
         <ul className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-slate-300 text-sm">
           <li className="flex items-start gap-2">
-            <span className="text-blue-400 shrink-0">✓</span>
+            <span className="text-red-400 shrink-0">✓</span>
             <span>HomeRun Method audit to define your app</span>
           </li>
           <li className="flex items-start gap-2">
-            <span className="text-blue-400 shrink-0">✓</span>
+            <span className="text-red-400 shrink-0">✓</span>
             <span>Mind map to visualize your idea</span>
           </li>
           <li className="flex items-start gap-2">
-            <span className="text-blue-400 shrink-0">✓</span>
+            <span className="text-red-400 shrink-0">✓</span>
             <span>Export prompts ready for your vibe coder</span>
           </li>
           <li className="flex items-start gap-2">
-            <span className="text-blue-400 shrink-0">✓</span>
+            <span className="text-red-400 shrink-0">✓</span>
             <span>Progress saved automatically</span>
           </li>
         </ul>

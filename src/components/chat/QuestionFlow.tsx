@@ -78,7 +78,7 @@ export function QuestionFlow() {
               onClick={() => setCurrentSection(s.id as SectionId)}
               className={`w-2 h-2 rounded-full transition-colors ${
                 s.id === currentSectionId
-                  ? 'bg-blue-500'
+                  ? 'bg-red-500'
                   : completedSections.has(s.id as SectionId)
                     ? 'bg-green-500'
                     : 'bg-slate-500 hover:bg-slate-400'
@@ -92,7 +92,7 @@ export function QuestionFlow() {
           type="button"
           onClick={goNext}
           disabled={!hasNext && !isOnLastSection}
-          className="px-4 py-2 rounded-lg bg-blue-500 text-white hover:bg-blue-600 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+          className="px-4 py-2 rounded-lg bg-red-500 text-white hover:bg-red-600 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
         >
           {isOnLastSection ? 'Go to Export' : 'Next'}
         </button>
