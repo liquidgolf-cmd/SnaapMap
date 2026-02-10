@@ -35,6 +35,18 @@ export function Splash() {
         </Link>
       </header>
 
+      {/* Founder story */}
+      <section className="max-w-2xl mx-auto px-6 py-8">
+        <h2 className="text-lg font-semibold text-slate-100 mb-3 text-center">
+          Why I built this
+        </h2>
+        <div className="bg-slate-700 rounded-xl border border-slate-600 p-6">
+          <p className="text-slate-300 text-center">
+            After watching 50+ founders waste days with Cursor building features that didn't fit together, I created SnaapMap to force the strategic thinking BEFORE the coding starts.
+          </p>
+        </div>
+      </section>
+
       {/* What you get */}
       <section className="max-w-3xl mx-auto px-6 py-10">
         <h2 className="text-lg font-semibold text-slate-100 mb-4 text-center">
