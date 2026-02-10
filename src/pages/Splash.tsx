@@ -25,7 +25,7 @@ export function Splash() {
           Your Vibe Coder Prompt Tool
         </p>
         <p className="text-slate-300 mt-4 max-w-xl mx-auto">
-          Define your app idea and generate prompts for AI coding tools like Cursor, Bolt, Lovable, or Replit.
+          Stop wasting weeks building the wrong features with AI. Get a complete product blueprint in 30 minutes, so every line of AI-generated code actually fits together.
         </p>
         <Link
           to="/signin"
