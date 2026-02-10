@@ -11,7 +11,7 @@ import { addDoc, collection } from 'firebase/firestore'
 import { db } from '../lib/firebase'
 import { useAuth } from './AuthContext'
 
-const STORAGE_KEY = 'snaapmap-user'
+const STORAGE_KEY = 'snappmap-user'
 
 export interface User {
   name: string

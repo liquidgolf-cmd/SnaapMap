@@ -55,9 +55,9 @@ export function Header({
         <Link
           to="/"
           className="shrink-0 flex flex-col items-center gap-0.5"
-          aria-label="SnaapMap home"
+          aria-label="SnappMap home"
         >
-          <img src={logoSrc} alt="SnaapMap" className="h-8 w-auto" />
+          <img src={logoSrc} alt="SnappMap" className="h-8 w-auto" />
           <span className="text-xs text-slate-400">Vibe Coder Prompt Tool</span>
         </Link>
         {showFocusToggle && onToggleSidebar && (

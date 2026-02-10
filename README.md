@@ -1,4 +1,4 @@
-# SnaapMap
+# SnappMap
 
 A tool that helps you gather all pertinent information needed to build an app with a vibe coder. It guides you through a structured audit and generates prompts ready for tools like Lovable, Bolt, Cursor, or Replit.
 

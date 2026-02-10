@@ -65,7 +65,7 @@ export function FeedbackModal() {
           Leave feedback
         </h2>
         <p className="text-sm text-slate-400 mb-4">
-          Your feedback helps us improve SnaapMap. Thanks for taking the time.
+          Your feedback helps us improve SnappMap. Thanks for taking the time.
         </p>
         {sent ? (
           <p className="text-green-400 text-sm">Thanks! Your feedback has been sent.</p>

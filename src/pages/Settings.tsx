@@ -34,7 +34,7 @@ export function Settings() {
     const url = URL.createObjectURL(blob)
     const a = document.createElement('a')
     a.href = url
-    a.download = `snaapmap-audit-${sessionId}-${Date.now()}.json`
+    a.download = `snappmap-audit-${sessionId}-${Date.now()}.json`
     a.click()
     URL.revokeObjectURL(url)
   }

@@ -15,11 +15,11 @@ export function Splash() {
         {/* Logo at 200% of header size (header uses h-8, so 200% = 4rem) */}
         <img
           src="/SnappMapLogo_dark.png"
-          alt="SnaapMap"
+          alt="SnappMap"
           className="h-16 w-auto mx-auto mb-6"
         />
         <h1 className="text-4xl font-bold text-slate-100 mb-3">
-          Welcome to SnaapMap
+          Welcome to SnappMap
         </h1>
         <p className="text-xl text-slate-400 max-w-2xl mx-auto">
           Your Vibe Coder Prompt Tool
@@ -42,7 +42,7 @@ export function Splash() {
         </h2>
         <div className="bg-slate-700 rounded-xl border border-slate-600 p-6">
           <p className="text-slate-300 text-center">
-            After watching 50+ founders waste days with Cursor building features that didn't fit together, I created SnaapMap to force the strategic thinking BEFORE the coding starts.
+            After watching 50+ founders waste days with Cursor building features that didn't fit together, I created SnappMap to force the strategic thinking BEFORE the coding starts.
           </p>
         </div>
       </section>
@@ -80,10 +80,10 @@ export function Splash() {
         <div className="bg-slate-700 rounded-xl border border-slate-600 p-6 text-center">
           <p className="text-slate-200 font-medium">Free during beta</p>
           <p className="text-slate-400 text-sm mt-1">
-            Use SnaapMap at no cost while we’re in beta. No credit card required.
+            Use SnappMap at no cost while we’re in beta. No credit card required.
           </p>
           <p className="text-slate-400 text-sm mt-3">
-            Thanks for using SnaapMap. When you're done, we'd love to hear from you—please leave a comment or feedback.
+            Thanks for using SnappMap. When you're done, we'd love to hear from you—please leave a comment or feedback.
           </p>
         </div>
       </section>

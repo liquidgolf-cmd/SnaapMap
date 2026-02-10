@@ -1,6 +1,6 @@
 {
-  "name": "snaapmap-functions",
-  "description": "Firebase Cloud Functions for SnaapMap (e.g. feedback email)",
+  "name": "snappmap-functions",
+  "description": "Firebase Cloud Functions for SnappMap (e.g. feedback email)",
   "main": "index.js",
   "type": "module",
   "engines": {

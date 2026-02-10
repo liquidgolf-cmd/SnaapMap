@@ -9,12 +9,12 @@ import {
 } from 'react'
 import { auditSections, type SectionId } from '../data/auditQuestions'
 
-const STORAGE_KEY = 'snaapmap-audit-responses'
-const SESSION_KEY = 'snaapmap-session-id'
+const STORAGE_KEY = 'snappmap-audit-responses'
+const SESSION_KEY = 'snappmap-session-id'
 
 export type AuditResponses = Record<string, string | string[]>
 
-export const MINDMAP_STORAGE_KEY = 'snaapmap-mindmap'
+export const MINDMAP_STORAGE_KEY = 'snappmap-mindmap'
 
 interface AuditContextValue {
   responses: AuditResponses

@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { GeneratedPrompts } from '../components/prompts/GeneratedPrompts'
 import { useFeedback } from '../context/FeedbackContext'
 
-const FEEDBACK_REMINDER_KEY = 'snaapmap-feedback-reminder-shown'
+const FEEDBACK_REMINDER_KEY = 'snappmap-feedback-reminder-shown'
 
 export function Prompts() {
   const { openFeedback } = useFeedback()
@@ -40,7 +40,7 @@ export function Prompts() {
       {showReminder && (
         <div className="flex flex-wrap items-center justify-between gap-3 p-4 rounded-xl bg-slate-700 border border-slate-600">
           <p className="text-slate-200 text-sm">
-            Thanks for using SnaapMap. We'd love to hear what you think—leave feedback when you're done.
+            Thanks for using SnappMap. We'd love to hear what you think—leave feedback when you're done.
           </p>
           <div className="flex gap-2 shrink-0">
             <button

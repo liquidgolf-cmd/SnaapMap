@@ -42,7 +42,7 @@ export const sendFeedbackEmail = onDocumentCreated(
       auth: { user, pass },
     })
 
-    const subject = `SnaapMap feedback from ${userEmail}`
+    const subject = `SnappMap feedback from ${userEmail}`
     const html = `
       <p><strong>Feedback:</strong></p>
       <p>${escapeHtml(text)}</p>

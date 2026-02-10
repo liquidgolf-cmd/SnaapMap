@@ -45,6 +45,6 @@ The **starting set** is done: theme (dark/light), sidebar default, and confirm-b
 
 ## Implementation notes
 
-- **Single preferences object** – Keep using one `snaapmap-preferences` JSON object and [PreferencesContext](src/context/PreferencesContext.tsx). Add new keys and default values there; extend the type in [PreferencesContext.tsx](src/context/PreferencesContext.tsx) (e.g. `Preferences` interface).
+- **Single preferences object** – Keep using one `snappmap-preferences` JSON object and [PreferencesContext](src/context/PreferencesContext.tsx). Add new keys and default values there; extend the type in [PreferencesContext.tsx](src/context/PreferencesContext.tsx) (e.g. `Preferences` interface).
 - **Settings UI** – Add new controls in [Settings](src/pages/Settings.tsx). If the list grows, consider grouping into tabs or collapsible sections (Appearance, Audit & prompts, Mind map, AI & privacy, Notifications).
 - **Where to read** – Layout/theme: already read from preferences. Audit: AuditContext and Dashboard. Prompts: Prompts page and GeneratedPrompts. Mind map: MindMapCanvas. AI: ai.ts and any component that shows AI buttons. No routing changes needed.

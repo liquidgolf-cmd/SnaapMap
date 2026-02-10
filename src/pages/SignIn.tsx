@@ -41,7 +41,7 @@ export function SignIn() {
           Get started
         </h1>
         <p className="text-slate-400 text-center mb-6">
-          Sign up or sign in to use SnaapMap
+          Sign up or sign in to use SnappMap
         </p>
         <div className="bg-slate-700 rounded-xl border border-slate-600 p-6">
           <form onSubmit={handleSubmit} className="space-y-4">

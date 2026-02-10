@@ -8,7 +8,7 @@ import {
   type ReactNode,
 } from 'react'
 
-const STORAGE_KEY = 'snaapmap-preferences'
+const STORAGE_KEY = 'snappmap-preferences'
 
 export type Theme = 'dark' | 'light'
 

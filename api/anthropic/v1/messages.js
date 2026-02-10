@@ -31,7 +31,7 @@ export default async function handler(req, res) {
     const data = await response.json().catch(() => ({}))
     res.status(response.status).json(data)
   } catch (err) {
-    console.error('[SnaapMap proxy]', err)
+    console.error('[SnappMap proxy]', err)
     res.status(500).json({ error: err.message || 'Proxy request failed' })
   }
 }

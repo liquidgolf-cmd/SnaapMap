@@ -1,4 +1,4 @@
-# SnaapMap Cloud Functions
+# SnappMap Cloud Functions
 
 ## sendFeedbackEmail
 

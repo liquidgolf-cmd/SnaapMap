@@ -43,7 +43,7 @@ export function Home() {
       {/* Guide / How it works */}
       <section className="text-center pt-4">
         <p className="text-lg text-slate-400 mb-4">
-          What to expect and how to use SnaapMap
+          What to expect and how to use SnappMap
         </p>
         <p className="text-slate-300 max-w-2xl mx-auto">
           The HomeRun Method helps you define your app idea and generate prompts for

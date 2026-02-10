@@ -76,10 +76,10 @@ The app uses client-side routing (React Router). `vercel.json` is configured so 
 
 ## Firebase Auth: authorized domains
 
-If you use Firebase Authentication (e.g. Google Sign-In) on a custom domain (e.g. `snaapmap.vercel.app`), add that domain in Firebase:
+If you use Firebase Authentication (e.g. Google Sign-In) on a custom domain (e.g. `snappmap.vercel.app`), add that domain in Firebase:
 
 1. Open [Firebase Console](https://console.firebase.google.com) → your project.
 2. **Authentication** → **Settings** → **Authorized domains**.
-3. Click **Add domain** and add your production domain (e.g. `snaapmap.vercel.app`).
+3. Click **Add domain** and add your production domain (e.g. `snappmap.vercel.app`).
 
 Otherwise you’ll see `auth/unauthorized-domain` and “The current domain is not authorized for OAuth operations” when using Sign in with Google in production.
