@@ -5,6 +5,7 @@ import { useAudit } from '../context/AuditContext'
 import { useFeedback } from '../context/FeedbackContext'
 import { usePreferences } from '../context/PreferencesContext'
 import type { Theme } from '../context/PreferencesContext'
+import { BUTTON_STYLES } from '../lib/buttonStyles'
 
 export function Settings() {
   const navigate = useNavigate()
@@ -71,7 +72,7 @@ export function Settings() {
         <button
           type="button"
           onClick={() => navigate('/app/audit')}
-          className="flex items-center gap-2 px-4 py-2 rounded-lg border border-slate-600 text-slate-300 hover:bg-slate-600 hover:text-slate-200 transition-colors text-sm"
+          className={`flex items-center gap-2 ${BUTTON_STYLES.outline.medium}`}
           title="Back to Audit"
         >
           <span>←</span>
@@ -130,21 +131,21 @@ export function Settings() {
             <button
               type="button"
               onClick={handleStartNewSession}
-              className="px-4 py-2 rounded-lg bg-slate-600 text-slate-200 hover:bg-slate-500 transition-colors text-sm"
+              className={BUTTON_STYLES.secondary.medium}
             >
               Start New Session
             </button>
             <button
               type="button"
               onClick={handleExport}
-              className="px-4 py-2 rounded-lg border border-slate-600 text-slate-300 hover:bg-slate-600 transition-colors text-sm"
+              className={BUTTON_STYLES.outline.medium}
             >
               Export Audit Data
             </button>
             <button
               type="button"
               onClick={handleImportClick}
-              className="px-4 py-2 rounded-lg border border-slate-600 text-slate-300 hover:bg-slate-600 transition-colors text-sm"
+              className={BUTTON_STYLES.outline.medium}
             >
               Import Audit Data
             </button>
@@ -158,7 +159,7 @@ export function Settings() {
             <button
               type="button"
               onClick={handleClearMindMap}
-              className="px-4 py-2 rounded-lg border border-slate-600 text-slate-300 hover:bg-slate-600 transition-colors text-sm"
+              className={BUTTON_STYLES.outline.medium}
             >
               Clear Mind Map
             </button>
@@ -179,7 +180,7 @@ export function Settings() {
           <button
             type="button"
             onClick={openFeedback}
-            className="px-4 py-2 rounded-lg border border-slate-600 text-slate-300 hover:bg-slate-600 transition-colors text-sm"
+            className={BUTTON_STYLES.outline.medium}
           >
             Leave feedback
           </button>
