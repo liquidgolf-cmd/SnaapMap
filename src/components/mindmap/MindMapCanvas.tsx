@@ -121,9 +121,9 @@ function MindMapNode({ data, id, selected }: MindMapNodeProps) {
   )
 }
 
-const nodeTypes: NodeTypes = {
-  mindmap: MindMapNode as any,
-}
+const nodeTypes = {
+  mindmap: MindMapNode,
+} satisfies NodeTypes
 
 function MindMapZoomRegistrar() {
   const { zoomIn, zoomOut, fitView } = useReactFlow()
@@ -174,7 +174,7 @@ function MindMapToolbar({ setNodes, setEdges: _setEdges, edges, saveToHistory, o
         throw new Error('React Flow viewport not found')
       }
 
-      const html2canvas = (window as any).html2canvas
+      const html2canvas = window.html2canvas
       if (html2canvas) {
         const canvas = await html2canvas(reactFlowViewport, {
           backgroundColor: '#1e293b',

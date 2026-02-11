@@ -3,14 +3,21 @@ import { useAudit } from '../../context/AuditContext'
 import { promptTemplates } from '../../data/promptTemplates'
 import { fillTemplate } from '../../lib/templateEngine'
 import { isAiAvailable, enhanceWithAi } from '../../lib/ai'
+import { useAsyncOperation } from '../../hooks/useAsyncOperation'
 
 export function GeneratedPrompts() {
   const { responses } = useAudit()
   const [copiedId, setCopiedId] = useState<string | null>(null)
   const [enhancedPrompts, setEnhancedPrompts] = useState<Record<string, string>>({})
   const [enhancingId, setEnhancingId] = useState<string | null>(null)
-  const [enhanceError, setEnhanceError] = useState<string | null>(null)
   const [collapsedIds, setCollapsedIds] = useState<Set<string>>(new Set())
+
+  const { execute: performEnhancement, error: enhanceError } = useAsyncOperation(
+    async (templateId: string, filled: string, context: string) => {
+      const enhanced = await enhanceWithAi(filled, context)
+      setEnhancedPrompts((prev) => ({ ...prev, [templateId]: enhanced }))
+    }
+  )
 
   const toggleCollapsed = (id: string) => {
     setCollapsedIds((prev) => {
@@ -49,26 +56,23 @@ export function GeneratedPrompts() {
 
   const handleEnhance = async (templateId: string) => {
     if (!isAiAvailable()) {
-      setEnhanceError('Add VITE_ANTHROPIC_API_KEY to your .env to use AI enhancement.')
       return
     }
     const template = promptTemplates.find((t) => t.id === templateId)
     if (!template) return
     const filled = fillTemplate(template.template, responses)
     if (!filled.trim()) return
+
+    const context = [
+      responses.app_name && `App: ${responses.app_name}`,
+      responses.app_description && `Description: ${responses.app_description}`,
+    ]
+      .filter(Boolean)
+      .join('\n')
+
     setEnhancingId(templateId)
-    setEnhanceError(null)
     try {
-      const context = [
-        responses.app_name && `App: ${responses.app_name}`,
-        responses.app_description && `Description: ${responses.app_description}`,
-      ]
-        .filter(Boolean)
-        .join('\n')
-      const enhanced = await enhanceWithAi(filled, context)
-      setEnhancedPrompts((prev) => ({ ...prev, [templateId]: enhanced }))
-    } catch (e) {
-      setEnhanceError(e instanceof Error ? e.message : 'Enhancement failed')
+      await performEnhancement(templateId, filled, context)
     } finally {
       setEnhancingId(null)
     }
@@ -89,11 +93,6 @@ export function GeneratedPrompts() {
         Use these prompts with your AI coding tool to build your MVP. Complete the
         audit for more detailed prompts.
       </p>
-      {!isAiAvailable() && (
-        <p className="text-xs text-amber-400">
-          Add VITE_ANTHROPIC_API_KEY to your .env file to enable AI enhancement.
-        </p>
-      )}
       {enhanceError && (
         <p className="text-sm text-red-500">{enhanceError}</p>
       )}
