@@ -5,44 +5,45 @@ import { db } from '../../lib/firebase'
 import { useAuth } from '../../context/AuthContext'
 import { useUser } from '../../context/UserContext'
 import { useFeedback } from '../../context/FeedbackContext'
+import { useAsyncOperation } from '../../hooks/useAsyncOperation'
 
 export function FeedbackModal() {
   const { isOpen, closeFeedback } = useFeedback()
   const { user } = useUser()
   const { firebaseUser } = useAuth()
   const [text, setText] = useState('')
-  const [submitting, setSubmitting] = useState(false)
   const [sent, setSent] = useState(false)
-  const [error, setError] = useState<string | null>(null)
 
-  if (!isOpen) return null
-
-  const handleSubmit = async (e: FormEvent) => {
-    e.preventDefault()
-    const trimmed = text.trim()
-    if (!trimmed) return
-    setSubmitting(true)
-    setError(null)
-    try {
+  const { execute: submitFeedback, loading: submitting, error } = useAsyncOperation(
+    async () => {
       if (db) {
         await addDoc(collection(db, 'feedback'), {
-          text: trimmed,
+          text: text.trim(),
           userEmail: user?.email ?? null,
           userId: firebaseUser?.uid ?? null,
           createdAt: new Date().toISOString(),
         })
       }
-      setSent(true)
-      setText('')
-      setTimeout(() => {
-        setSent(false)
-        closeFeedback()
-      }, 1500)
-    } catch (err) {
-      setError(err instanceof Error ? err.message : 'Failed to send feedback')
-    } finally {
-      setSubmitting(false)
+    },
+    {
+      onSuccess: () => {
+        setSent(true)
+        setText('')
+        setTimeout(() => {
+          setSent(false)
+          closeFeedback()
+        }, 1500)
+      }
     }
+  )
+
+  if (!isOpen) return null
+
+  const handleSubmit = (e: FormEvent) => {
+    e.preventDefault()
+    const trimmed = text.trim()
+    if (!trimmed) return
+    submitFeedback()
   }
 
   const handleBackdropClick = (e: React.MouseEvent) => {

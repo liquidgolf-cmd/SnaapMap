@@ -12,6 +12,7 @@ import {
   type AuditContextForAi,
   type GeneratedExamples,
 } from '../../lib/ai'
+import { useAsyncOperation } from '../../hooks/useAsyncOperation'
 
 interface ExampleModalProps {
   fieldId: string
@@ -30,8 +31,6 @@ export function ExampleModal({
 }: ExampleModalProps) {
   const [selectedCategory, setSelectedCategory] = useState<ExampleCategory>('fitness')
   const [aiExamples, setAiExamples] = useState<GeneratedExamples | null>(null)
-  const [aiLoading, setAiLoading] = useState(false)
-  const [aiError, setAiError] = useState<string | null>(null)
   const [viewMode, setViewMode] = useState<'canned' | 'ai'>('canned')
 
   const fieldExamples = exampleLibrary[fieldId]
@@ -40,20 +39,14 @@ export function ExampleModal({
 
   const canGenerateAi = isAiAvailable() && auditContext
 
-  const handleGenerateAi = async () => {
-    if (!canGenerateAi || !auditContext) return
-    setAiLoading(true)
-    setAiError(null)
-    try {
+  const { execute: handleGenerateAi, loading: aiLoading, error: aiError } = useAsyncOperation(
+    async () => {
+      if (!canGenerateAi || !auditContext) return
       const generated = await generateContextualExamples(questionLabel, auditContext)
       setAiExamples(generated)
       setViewMode('ai')
-    } catch (e) {
-      setAiError(e instanceof Error ? e.message : 'Failed to generate examples')
-    } finally {
-      setAiLoading(false)
     }
-  }
+  )
 
   if (!hasExamplesForField(fieldId) && !canGenerateAi) {
     return createPortal(

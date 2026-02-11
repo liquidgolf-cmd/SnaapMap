@@ -4,6 +4,7 @@ import { getSectionById } from '../../data/auditQuestions'
 import { hasExamplesForField } from '../../data/exampleLibrary'
 import { isAiAvailable, suggestFieldValue } from '../../lib/ai'
 import { useAudit } from '../../context/AuditContext'
+import { useAsyncOperation } from '../../hooks/useAsyncOperation'
 import { ExampleModal } from '../shared/ExampleModal'
 
 interface QuestionCardProps {
@@ -23,8 +24,6 @@ export function QuestionCard({ question, value, onChange }: QuestionCardProps) {
         questionId: question.id,
       }
     : undefined
-  const [loading, setLoading] = useState(false)
-  const [error, setError] = useState<string | null>(null)
   const [showExampleModal, setShowExampleModal] = useState(false)
   const hasExamples = hasExamplesForField(question.id)
   const canShowExamples = hasExamples || (isAiAvailable() && !!auditContext)
@@ -32,23 +31,17 @@ export function QuestionCard({ question, value, onChange }: QuestionCardProps) {
   const arrayValue = Array.isArray(value) ? value : []
   const canPromptAi = isAiAvailable() && (question.type === 'text' || question.type === 'textarea')
 
-  const handlePromptAi = async () => {
-    if (!canPromptAi) return
-    setLoading(true)
-    setError(null)
-    try {
+  const { execute: handlePromptAi, loading, error } = useAsyncOperation(
+    async () => {
+      if (!canPromptAi) return
       const suggested = await suggestFieldValue(
         question.question,
         stringValue,
         auditContext
       )
       if (suggested) onChange(suggested)
-    } catch (e) {
-      setError(e instanceof Error ? e.message : 'AI suggestion failed')
-    } finally {
-      setLoading(false)
     }
-  }
+  )
 
   switch (question.type) {
     case 'textarea':
